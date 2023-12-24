@@ -1,4 +1,4 @@
-import mideoMeInTheAppStore from './2013-11-20-building-my-first-phonegap-ios-app-and-what-i-learned/mideome-in-the-app-store.png'
+import mideoMeInTheAppStore from '../2013-11-20-building-my-first-phonegap-ios-app-and-what-i-learned/mideome-in-the-app-store.png'
 import Link from "next/link";
 
 export default function Page() {
@@ -10,8 +10,8 @@ export default function Page() {
           </div>
           <div className="flex-none">
             <ul className="menu menu-horizontal px-1">
-              <li><a>Blog</a></li>
-              <li><a>About</a></li>
+              <li><Link href="/blog">Blog</Link></li>
+              {/*<li><Link href="/about">About</Link></li>*/}
               {/*<li>*/}
               {/*  <details>*/}
               {/*    <summary>*/}
