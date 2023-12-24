@@ -8,8 +8,8 @@ export const Navbar = () => {
         <div className="flex-none">
             <ul className="menu menu-horizontal px-1">
                 <li><Link href="/blog">Blog</Link></li>
+                <li><Link href="/about-me">About Me</Link></li>
                 <li><Link href="/resume">Resume/CV</Link></li>
-                {/*<li><Link href="/about">About</Link></li>*/}
                 {/*<li>*/}
                 {/*  <details>*/}
                 {/*    <summary>*/}
