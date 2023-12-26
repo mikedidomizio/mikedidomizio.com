@@ -1,12 +1,13 @@
 import sharedDatabase from "./shared-database.png";
 import MdxLayout from "../../components/MdxLayout";
+import { metadata } from './metadata'
 
-<title>The screams of a shared hosting database dying</title>
+<title>{metadata.title}</title>
 
 <MdxLayout>
-    ## The screams of a shared hosting database dying
+    ## {metadata.title}
 
-    ### December 8th, 2013
+    ### {metadata.date}
 
     <div className="my-10 flex items-center justify-center">
         <img className="sm:w-6/6 md:h-[200px]" alt="Database table with a ton of rows" src={sharedDatabase.src} />

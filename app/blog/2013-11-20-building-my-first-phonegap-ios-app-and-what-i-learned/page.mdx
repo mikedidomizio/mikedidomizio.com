@@ -4,12 +4,14 @@ import mideomeDiscover from "./mideome-discover-new-people.jpeg";
 import MdxLayout from "../../components/MdxLayout";
 import Link from "next/link";
 
-<title>Building my first Phonegap iOS app and what I learned</title>
+import { metadata } from './metadata'
+
+<title>{metadata.title}</title>
 
 <MdxLayout>
-    ## Building my first Phonegap iOS app and what I learned
+    ## {metadata.title}
 
-    ### November 20th, 2013
+    ### {metadata.date}
 
     <div className="my-10 flex items-center justify-center">
         <img className="sm:w-6/6 md:h-[400px]" alt="MideoMe on iOS" src={mideomeDiscover.src} />
