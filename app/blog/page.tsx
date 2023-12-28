@@ -11,7 +11,7 @@ export default function Page() {
         <Navbar />
         <Content>
           <h2 className="text-4xl font-bold mb-4">Blog Posts</h2>
-          <div className="flex flex-wrap -mx-2">
+          <div className="grid gap-4 lg:grid-cols-3">
               <BlogPostCard date={sharedDatabaseMetadata.date}
                             link={sharedDatabaseMetadata.url}
                             image={sharedDatabaseMetadata.picture}
