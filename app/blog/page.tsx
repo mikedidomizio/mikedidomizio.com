@@ -13,21 +13,9 @@ export default function Page() {
         <Content>
           <h2 className="text-4xl font-bold mb-4">Blog Posts</h2>
           <div className="grid gap-4 lg:grid-cols-3">
-              <BlogPostCard date={shopifyApi.date}
-                            link={shopifyApi.url}
-                            image={shopifyApi.picture}
-                            title={shopifyApi.title} tags={shopifyApi.tags} />
-
-              <BlogPostCard date={sharedDatabaseMetadata.date}
-                            link={sharedDatabaseMetadata.url}
-                            image={sharedDatabaseMetadata.picture}
-                            title={sharedDatabaseMetadata.title} tags={sharedDatabaseMetadata.tags} />
-
-              <BlogPostCard date={mideoMeIOS.date}
-                          link={mideoMeIOS.url}
-                          image={mideoMeIOS.picture}
-                          title={mideoMeIOS.title} tags={mideoMeIOS.tags} />
-
+              <BlogPostCard {...shopifyApi} />
+              <BlogPostCard {...sharedDatabaseMetadata} />
+              <BlogPostCard {...mideoMeIOS} />
           </div>
         </Content>
       </div>
