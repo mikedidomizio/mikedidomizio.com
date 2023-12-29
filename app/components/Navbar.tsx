@@ -3,13 +3,14 @@ import Link from "next/link";
 export const Navbar = () => {
     return <div className="navbar bg-base-100">
         <div className="flex-1">
-            <h1><Link href="/" className="btn btn-ghost text-xl">mikedidomizio.com</Link></h1>
+            <h1><Link href="/" className="btn btn-ghost text-xl">mikedidomizio</Link></h1>
             A place for me to write what I&apos;m up to
         </div>
         <div className="flex-none">
             <ul className="menu menu-horizontal px-1">
                 <li><Link href="/blog">Blog</Link></li>
                 <li><Link href="/resume">Resume/CV</Link></li>
+                <li><Link target="_blank" href="https://github.com/mikedidomizio/mikedidomizio.com">GitHub</Link></li>
                 {/*<li><Link href="/about">About</Link></li>*/}
                 {/*<li>*/}
                 {/*  <details>*/}
