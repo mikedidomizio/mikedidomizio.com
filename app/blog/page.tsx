@@ -1,6 +1,6 @@
-import {Navbar} from "@/app/components/Navbar";
-import {Content} from "@/app/components/Content";
-import {BlogPostCard} from "@/app/components/BlogPostCard";
+import {Navbar} from "@/components/Navbar";
+import {Content} from "@/components/Content";
+import {BlogPostCard} from "@/components/BlogPostCard";
 
 import { metadata as sharedDatabaseMetadata } from './2013-12-08-the-screams-of-a-shared-hosting-database-dying/metadata'
 import { metadata as mideoMeIOS } from './2013-11-20-building-my-first-phonegap-ios-app-and-what-i-learned/metadata'
