@@ -4,7 +4,7 @@ export const Navbar = () => {
     return <div className="navbar bg-base-100">
         <div className="flex-1">
             <h1><Link href="/" className="btn btn-ghost text-xl">mikedidomizio</Link></h1>
-            A place for me to write what I&apos;m up to
+            <span className="hidden md:inline">A place for me to write what I&apos;m up to</span>
         </div>
         <div className="flex-none">
             <ul className="menu menu-horizontal px-1">
