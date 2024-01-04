@@ -1,0 +1,7 @@
+{
+  "rewrites": [
+    {"source": "/resume-js/:match*", "destination": "https://mikedidomizio-resume.vercel.app/resume-js/:match*"},
+    {"source": "/resume-css:match(.*)", "destination": "https://mikedidomizio-resume.vercel.app/resume-css:match*"},
+    {"source": "/resume", "destination": "https://mikedidomizio-resume.vercel.app/"}
+  ]
+}
