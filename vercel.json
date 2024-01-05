@@ -1,11 +1,11 @@
 {
   "headers": [
     {
-      "source": "https://fonts.googleapis.com/css?family=Open+Sans:300,400,700",
+      "source": "https://fonts.googleapis.com/css",
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self';font-src fonts.gstatic.com;style-src 'self' fonts.googleapis.com"
+          "value": "default-src 'self';font-src https://fonts.gstatic.com;style-src 'self' https://fonts.googleapis.com;"
         }
       ]
     }
