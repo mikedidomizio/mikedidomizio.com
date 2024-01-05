@@ -10,7 +10,7 @@
       ]
     },
     {
-      "source": "/",
+      "source": "/\\_next\/.+",
       "headers": [
 
       ]
