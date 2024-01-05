@@ -1,4 +1,15 @@
 {
+  "headers": [
+    {
+      "source": "/resume",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; font-src 'self' fonts.gstatic.com; style-src 'self' fonts.googleapis.com; img-src 'self' data:;"
+        }
+      ]
+    }
+  ],
   "rewrites": [
     {"source": "/resume-js/:match*", "destination": "https://mikedidomizio-resume.vercel.app/resume-js/:match*"},
     {"source": "/resume-css:match(.*)", "destination": "https://mikedidomizio-resume.vercel.app/resume-css:match*"},
