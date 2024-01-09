@@ -10,6 +10,7 @@ import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 import { OldPost } from '@/components/OldPost'
+import { isDateOlderThanYears } from '../helpers/isDateOlderThanYears'
 
 const editUrl = (path) => `${siteMetadata.siteRepo}/blob/main/data/${path}`
 const discussUrl = (path) =>
@@ -28,10 +29,6 @@ interface LayoutProps {
   next?: { path: string; title: string }
   prev?: { path: string; title: string }
   children: ReactNode
-}
-
-const isPostOlderThanYears = (postDate: string, yearsOlderThan = 10): boolean => {
-  return new Date().getFullYear() - new Date(postDate).getFullYear() > yearsOlderThan
 }
 
 export default function PostLayout({ content, authorDetails, next, prev, children }: LayoutProps) {
@@ -101,7 +98,7 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
             </dl>
             <div className="divide-y divide-gray-200 dark:divide-gray-700 xl:col-span-3 xl:row-span-2 xl:pb-0">
               <div className="prose max-w-none pb-8 pt-10 dark:prose-invert">
-                {isPostOlderThanYears(date) ? <OldPost /> : null}
+                {isDateOlderThanYears(date) ? <OldPost /> : null}
                 {children}
               </div>
               <div className="pb-6 pt-6 text-sm text-gray-700 dark:text-gray-300">

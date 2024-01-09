@@ -10,6 +10,8 @@ import Link from '@/components/Link'
 import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import tagData from 'app/tag-data.json'
+import { isDateOlderThanYears } from '../helpers/isDateOlderThanYears'
+import { OldPostPill } from '@/components/OldPost'
 
 interface PaginationProps {
   totalPages: number
@@ -134,11 +136,14 @@ export default function ListLayoutWithTags({
                       </dl>
                       <div className="space-y-3">
                         <div>
-                          <h2 className="text-2xl font-bold leading-8 tracking-tight">
-                            <Link href={`/${path}`} className="text-gray-900 dark:text-gray-100">
-                              {title}
-                            </Link>
-                          </h2>
+                          <div className="flex items-center space-x-2">
+                            <h2 className="inline text-2xl font-bold leading-8 tracking-tight">
+                              <Link href={`/${path}`} className="text-gray-900 dark:text-gray-100">
+                                {title}
+                              </Link>
+                            </h2>
+                            <span>{isDateOlderThanYears(date) ? <OldPostPill /> : null}</span>
+                          </div>
                           <div className="flex flex-wrap">
                             {tags?.map((tag) => <Tag key={tag} text={tag} />)}
                           </div>
