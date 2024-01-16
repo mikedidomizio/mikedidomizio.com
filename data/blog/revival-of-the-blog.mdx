@@ -1,7 +1,7 @@
 ---
 title: Deploying a Next.js app alongside a Vue.js app on Vercel (Revival of the Blog)
 date: '2024-01-15'
-tags: ['next.js', 'vercel', 'vue.js']
+tags: ['content security policy', 'csp', 'next.js', 'vercel', 'vue.js']
 draft: true
 ---
 
@@ -184,8 +184,26 @@ but this felt like the quickest and simplest solution.
 
 ### Google Analytics CSP
 
-Google Analytics was also blocked by CSP.  The main site had not been configured properly and the Resume/CV Google Analaytics
+Google Analytics was also blocked by CSP. The main site had not been setup and the Resume/CV Google Analytics
 was no longer working properly.
+
+It required changes to the `vercel.json` file that can be read up on [here](https://developers.google.com/tag-platform/security/guides/csp#google_analytics_4_google_analytics).
+
+Finally adding a hash to avoid using [`unsafe-inline`](https://content-security-policy.com/unsafe-inline/).
+
+Modifying the content security policy to be such:
+
+```text
+script-src-elem 'self' *.googletagmanager.com 'sha256-NWf2QfXgstC58zeipPN/8CH5ZLaYLMFh0+dDWU0xbcY='
+```
+
+and optionally updating the `<script>` tag in the Vue.js project to include the hash:
+
+```html
+<script integrity="sha256-NWf2QfXgstC58zeipPN/8CH5ZLaYLMFh0+dDWU0xbcY=" crossorigin="anonymous">
+```
+
+This is a [quick read](https://content-security-policy.com/hash/) on hashes with CSP that I found helped.
 
 ## Conclusion
 
