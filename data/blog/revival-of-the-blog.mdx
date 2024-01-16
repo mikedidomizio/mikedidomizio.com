@@ -1,18 +1,17 @@
 ---
 title: Deploying a Next.js app alongside a Vue.js app on Vercel (Revival of the Blog)
-date: '2024-01-12'
+date: '2024-01-15'
 tags: ['next.js', 'vercel', 'vue.js']
 draft: true
 ---
 
 import {ImageWithCaption} from '@/components/ImageWithCaption'
 
-If you want to go jump straight to the how it was done part, [click here](#the-issues)
+If you want to go jump straight to the how it was done, [click here](#the-issues)
 
 ## Intro
 
-Just to give a bit of context, the original blog was a WordPress installation on hosted on HostGator.
-Simple installation, themed and a bunch of plugins.
+Just to give a bit of history, the original blog was a WordPress installation on hosted on HostGator.
 
 <ImageWithCaption image={
     <img alt="mikedidomizio.com in 2016-03-23" src="/static/images/revival-of-the-blog/mikedidomiziocom-20160323193610.webp" />}
@@ -39,37 +38,34 @@ A lot has changed since that time.
 
 When I initially created the blog, using WordPress was the obvious choice.
 Although I haven't used it in forever, I'm confident that, for many purposes,
-WordPress is still the de facto answer.
-
-It's interesting to see all the options there are today compared to then.
+WordPress is still the de facto choice.
 
 ## The Blog ShutDown
 
-I hosted my site with HostGator because they were decent.
+I hosted my site with HostGator because they were popular and affordable.
 I decided to shut it down at one point though because it was just unnecessary hosting costs.
 I was working a new job, I wasn't writing anything. I was still doing the occasional
-OSS contribution and small projects.  The hosting was costing me a few bucks a month, and so I decided to cut it.
+OSS contribution and small projects. The hosting was costing me a few bucks a month, and I felt it wasn't worth continuing so I decided to cut it.
 
 ## The move to AWS S3
 
 I decided to remove the blog and just have by resume/CV up.
-By removing the blog, which required a database, I could just opt for a static SPA solution.
+By removing the blog, which required a database, I could just opt for a static site solution.
 
 At that time my CV was just HTML/CSS so moving it into an S3 bucket and pointing the domain to the bucket was a viable solution.
 
 Mid-2020 I moved my CV into [source control](https://github.com/mikedidomizio/mikedidomizio-resume/commit/31760f20710a4a369e6cb115ebb769663db49323).
-
-This allowed me to have a history of changes, and allow me to revert if I needed.  Which I sometimes did.
+This allowed me to have a history of changes, and allow me to revert if I needed.
+It was also just nice to see a progression over time as skills and line items changed.
 
 At the start of 2021, I [converted the project](https://github.com/mikedidomizio/mikedidomizio-resume/commit/81a17712c0edbd1b95dcddf1793fefd6a02ce27c) to use Vue.js.
-I wanted to have easy to maintain consistency throughout the application.  If I changed margins, I wanted to do it once.
+I wanted to have easy to maintain consistency throughout the application. Which could be done by breaking the CV into components.
 
-When I pushed to the default branch, it would build it and push the static build to S3.
+When I pushed to the default branch, it would build it and deploy the static build to S3.
 
 ## Busy in 2023
 
 Late 2023 after working on a number of personal projects I wanted to get back into more writing.
-
 My original thought was to go back to WordPress, then deploy a static build with Remix.
 
 I started building out my own Next.js implementation.  My only issues:
@@ -80,10 +76,9 @@ but the biggest thing was:
 
 - The time of building it
 
-I just wanted to write, not code a blog.
+I just wanted to write, not code from scratch a blog.
 
 I found this [Next.js Tailwind Starter Blog](https://github.com/timlrx/tailwind-nextjs-starter-blog) and it looked good and seemed to fit all my needs.
-
 My plan was to deploy with Vercel to keep things simple.
 
 ## The issues
@@ -92,15 +87,15 @@ The first issue was how was I going to deploy a Next.js app and Vue.js app toget
 
 I wanted the same routing as I had with my WordPress, my plans for routing were:
 
-- https://mikedidomizio.com/resume to go to my CV/resume
-- All other routes to be handled by Next.js (which originally was WordPress)
+- `https://mikedidomizio.com/resume` to go to my CV/resume
+- `https://mikedidomizio.com/*` to be handled by Next.js (which originally was WordPress)
 
-My first thought quick solution thought was, do I setup a monorepo to host the two projects to be deployed together?
+My first thought was do I set it up as a monorepo to host the two projects to be deployed together?
 
 I didn't really want that, I (currently) like the separation of the two projects.
 Two separate git histories, easy to maintain separately and if I need to separate them again, it's practically already done.
 
-## Vercel.json
+## Creating the vercel.json configuration
 
 Vercel has the ability to include a `vercel.json` file to alter the project configuration.
 I haven't [gone through all of the documentation](https://vercel.com/docs/projects/project-configuration) but it
@@ -109,14 +104,14 @@ seems pretty powerful and easy to use.
 I wanted to have Vercel point to a different deployment if a user goes to the `/resume` endpoint. This could
 be done with their [rewrites](https://vercel.com/docs/projects/project-configuration#rewrites).
 
-This was done pretty simply with just:
+This was accomplished pretty simply with just having the `source` be the endpoint I wanted and the `destination` point to the other Vercel deployment:
 
 ```json
   {"source": "/resume", "destination": "https://mikedidomizio-resume.vercel.app/"}
 ```
 
 I was immediately hit with one issue though, CSS/JS not loading properly.
-The simple solution would be to also forward those routes but I took a catch all approach and had Vue build to differentiate
+The simple solution would be to also forward those routes as well, but I chose to have Vue build to differentiate
 these files as `resume-*` directories/files.
 
 Going from this:
@@ -142,7 +137,7 @@ app/
 └── index.html
 ```
 
-by changing the `vue.config.js` to include
+by changing the Vue.js configuration (`vue.config.js`) to include
 
 ```
     chainWebpack: (config) => {
@@ -160,8 +155,8 @@ by changing the `vue.config.js` to include
     assetsDir: 'resume-js',
 ```
 
-All of the above is probably not required to do, but I wanted to ensure there was less chance of conflicts.
-Afterwards I had to also tell the Vercel configuration about these specific routes via in the `rewrites` array.
+The `resume-*` prefix is not required to do, but I wanted to ensure there was less chance of conflicts.
+I had to also update the Vercel configuration about these specific routes via the `rewrites` array.
 
 ```json
 {"source": "/resume-js/:match*", "destination": "https://mikedidomizio-resume.vercel.app/resume-js/:match*"},
@@ -186,12 +181,11 @@ I updated the `vercel.json` file to include CSP for that `/resume` endpoint
 
 This allowed me to get around Google Fonts being blocked. Some other options would have been nonces and hashes,
 but this felt like the quickest and simplest solution.
-If anyone wants to share a similar setup to mine with nonces or hashes, feel free to reach out as I'm curious.
 
-### Google Analytics
+### Google Analytics CSP
 
-As of writing this Google Analytics is still not set up correctly for either installation. It's not really a bother to me
-but I'll try to update this once it's fixed.
+Google Analytics was also blocked by CSP.  The main site had not been configured properly and the Resume/CV Google Analaytics
+was no longer working properly.
 
 ## Conclusion
 
