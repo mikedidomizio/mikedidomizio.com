@@ -8,9 +8,10 @@ const withBundleAnalyzer = require('@next/bundle-analyzer')({
 // todo unsafe-inline needed?
 const ContentSecurityPolicy = `
   default-src 'self';
-  script-src 'self' 'unsafe-eval' 'unsafe-inline';
+  script-src 'self' 'unsafe-eval' 'unsafe-inline' https://*.googletagmanager.com;
   style-src 'self' 'unsafe-inline';
-  img-src * blob: data:;
+  img-src * blob: data: https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com
+             https://*.g.doubleclick.net https://*.google.com https://*.google.com;
   media-src *.s3.amazonaws.com;
   connect-src *;
   font-src 'self';
