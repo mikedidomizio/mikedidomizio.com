@@ -1,7 +1,7 @@
 ---
 title: Deploying a Next.js app alongside a Vue.js app on Vercel (Revival of the Blog)
 date: '2024-01-16'
-tags: ['content security policy', 'csp', 'next.js', 'vercel', 'vercel.json', 'vue.js']
+tags: ['content security policy', 'csp', 'google analytics', 'next.js', 'vercel', 'vercel.json', 'vue.js']
 draft: true
 ---
 
@@ -17,6 +17,7 @@ import {TweetIntent} from '@/components/TweetIntent'
 - [The Issues](#the-issues)
   - [Creating the Vercel Configuration](#creating-the-verceljson-configuration)
   - [Content Security Policy Issues](#content-security-policy-issues)
+- [Shout Outs](#shout-outs)
 - [Conclusion](#conclusion)
 
 If you want to go jump straight to the how it was done, [click here](#the-issues)
@@ -120,6 +121,8 @@ This was accomplished pretty simply with just having the `source` be the endpoin
 {"source": "/resume", "destination": "https://mikedidomizio-resume.vercel.app/"}
 ```
 
+This can be verified working by visiting your main deployment URL and visiting the `source` endpoint and verifying if that goes to the `destination`.
+
 I was immediately hit with one issue though, CSS/JS not loading properly.
 The simple solution would be to also forward those routes as well, but I chose to have Vue build to differentiate
 these files as `resume-*` directories/files.
@@ -191,8 +194,8 @@ I updated the `vercel.json` file to include CSP for that `/resume` endpoint
 }
 ```
 
-This allowed me to get around Google Fonts being blocked. Some other options would have been nonces and hashes,
-but this felt like the quickest and simplest solution.
+This allowed me to get around Google Fonts being blocked, which can be verified that the font loads, either visually or by the network panel of your browser.
+Some other options would have been nonces and hashes, but this felt like the quickest and simplest solution.
 
 ### Google Analytics CSP
 
@@ -200,6 +203,7 @@ Google Analytics was also blocked by CSP. The main site had not been setup and t
 was no longer working properly.
 
 The Resume/CV deployment required changes to the `vercel.json` file, that can be quickly taken from [here](https://developers.google.com/tag-platform/security/guides/csp#google_analytics_4_google_analytics).
+The rest of the document will be working towards Google Analytics 4.
 
 Adding a hash to avoid using [unsafe-inline](https://content-security-policy.com/unsafe-inline/).
 
@@ -223,6 +227,8 @@ and updating the `<script>` tag in the Vue.js project to include the hash:
 ```
 
 > Note that the above example is also using subresource integrity or SRI to enforce the hash. You might find it duplicating to have it in both places, but it can serve as a good way to document which hash is for which script.
+
+You can verify the above works by loading up Google Analytics Real Time dashboard, visiting the endpoint in another tab and see if it GA reports a new user.
 
 Finally updating the main site [next.config.js](https://github.com/mikedidomizio/mikedidomizio.com/commit/5aa5da52073239e3ba60c790559901a64d560755) [headers](https://nextjs.org/docs/app/api-reference/next-config-js/headers) to use the values needed for it.
 
@@ -251,6 +257,24 @@ async headers() {
   ]
 },
 ```
+
+You can verify the above by going to any other endpoint and changing pages and verifying that Google Analytics reports the other pages.
+
+The CSP stuff can be a bit tricky but the errors I find are pretty telling of what is going on. Read the CSP links in this post, and break down the errors that your browser reports.
+
+## Shout Outs
+
+[content-security-policy.com](https://content-security-policy.com/) is a really nice website and good resource regarding CSP.
+
+## Maintenance
+
+This should be fairly stable with Google Analytics but with third party requests it's always possible things change.
+Vercel/Next changes may require updates to continue this properly being deployed.
+
+As of writing this:
+
+- `"next": "14.0.3",`
+- `"vue": "^2.6.11"`
 
 ## Conclusion
 
