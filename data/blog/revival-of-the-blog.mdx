@@ -153,6 +153,7 @@ app/
 by changing the Vue.js configuration (`vue.config.js`) to include
 
 ```
+// all CSS files to be prefixed with `resume-css`
 chainWebpack: (config) => {
   if (process.env.NODE_ENV === 'production') {
     config
@@ -165,6 +166,7 @@ chainWebpack: (config) => {
         .end()
   }
 },
+// assets to be under `resume-js` directory (I just had js files but you may have other files in here and want to make the directory more generic named)
 assetsDir: 'resume-js',
 ```
 
@@ -199,7 +201,7 @@ Some other options would have been nonces and hashes, but this felt like the qui
 
 ### Google Analytics CSP
 
-Google Analytics was also blocked by CSP. The main site had not been setup and the Resume/CV Google Analytics
+Google Analytics (sometimes referred here as GA) was also blocked by CSP. The main site had not been setup and the Resume/CV Google Analytics
 was no longer working properly.
 
 The Resume/CV deployment required changes to the `vercel.json` file, that can be quickly taken from [here](https://developers.google.com/tag-platform/security/guides/csp#google_analytics_4_google_analytics).
@@ -236,6 +238,7 @@ Finally updating the main site [next.config.js](https://github.com/mikedidomizio
 in this repo and let me know.
 
 ```
+// all routes to have this CSP header
 async headers() {
   return [
     {
@@ -268,17 +271,21 @@ The CSP stuff can be a bit tricky but the errors I find are pretty telling of wh
 
 ## Maintenance
 
-This should be fairly stable with Google Analytics but with third party requests it's always possible things change.
+This should be fairly stable with Google Analytics 4 but with third party requests it's always possible things change.
 Vercel/Next changes may require updates to continue this properly being deployed.
 
-As of writing this:
+As of writing this the versions used in these projects are:
 
 - `"next": "14.0.3",`
 - `"vue": "^2.6.11"`
 
+This post may be updated periodically but the majority of the work was done between 2024-01-01 and 2024-01-15.
+If significant time has passed since this has been published consider that some of it may be out of date.
+
 ## Conclusion
 
 By configuring Vercel it was fairly simple to get two separate apps working alongside together.
-It did take understanding what had to be done to get it to work right but once understood it worked nicely 🎉.
+It does take understanding what has to be done to get it to work right but once understood it worked nicely 🎉.
 
-Have you done a similar setup? I'm curious. <TweetIntent text="Let me know!" tweet="@Mike_DiDomizio re:deploying multi apps under via Vercel." />
+Have you done a similar setup? Better? More complicated? I'm curious.
+<TweetIntent text="Let me know!" tweet="@Mike_DiDomizio re:deploying multi apps under via Vercel." />
