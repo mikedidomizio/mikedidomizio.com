@@ -1,11 +1,23 @@
 ---
 title: Deploying a Next.js app alongside a Vue.js app on Vercel (Revival of the Blog)
-date: '2024-01-15'
-tags: ['content security policy', 'csp', 'next.js', 'vercel', 'vue.js']
+date: '2024-01-16'
+tags: ['content security policy', 'csp', 'next.js', 'vercel', 'vercel.json', 'vue.js']
 draft: true
 ---
 
 import {ImageWithCaption} from '@/components/ImageWithCaption'
+import {TweetIntent} from '@/components/TweetIntent'
+
+## Table of Contents
+
+- [Introduction](#intro)
+- [Blog Shutdown](#the-blog-shutdown)
+- [Move to AWS S3](#the-move-to-aws-s3)
+- [Busy in 2023](#busy-in-2023)
+- [The Issues](#the-issues)
+  - [Creating the Vercel Configuration](#creating-the-verceljson-configuration)
+  - [Content Security Policy Issues](#content-security-policy-issues)
+- [Conclusion](#conclusion)
 
 If you want to go jump straight to the how it was done, [click here](#the-issues)
 
@@ -85,10 +97,8 @@ My plan was to deploy with Vercel to keep things simple.
 
 The first issue was how was I going to deploy a Next.js app and Vue.js app together on Vercel under the same domain?
 
-I wanted the same routing as I had with my WordPress, my plans for routing were:
-
-- `https://mikedidomizio.com/resume` to go to my CV/resume
-- `https://mikedidomizio.com/*` to be handled by Next.js (which originally was WordPress)
+- https://mikedidomizio.com/resume is a [Vue.js application](https://github.com/mikedidomizio/mikedidomizio-resume).
+- https://mikedidomizio.com (and all other routes) is a [Next.js application](https://github.com/mikedidomizio/mikedidomizio.com).
 
 My first thought was do I set it up as a monorepo to host the two projects to be deployed together?
 
@@ -107,7 +117,7 @@ be done with their [rewrites](https://vercel.com/docs/projects/project-configura
 This was accomplished pretty simply with just having the `source` be the endpoint I wanted and the `destination` point to the other Vercel deployment:
 
 ```json
-  {"source": "/resume", "destination": "https://mikedidomizio-resume.vercel.app/"}
+{"source": "/resume", "destination": "https://mikedidomizio-resume.vercel.app/"}
 ```
 
 I was immediately hit with one issue though, CSS/JS not loading properly.
@@ -140,43 +150,45 @@ app/
 by changing the Vue.js configuration (`vue.config.js`) to include
 
 ```
-    chainWebpack: (config) => {
-        if (process.env.NODE_ENV === 'production') {
-            config
-                .plugin('extract-css')
-                .tap((args) => {
-                    args[0].filename = 'resume-css.[name].[contenthash:8].css';
-                    args[0].chunkFilename = 'resume-css.[name].[contenthash:8].css';
-                    return args;
-                })
-                .end()
-        }
-    },
-    assetsDir: 'resume-js',
+chainWebpack: (config) => {
+  if (process.env.NODE_ENV === 'production') {
+    config
+      .plugin('extract-css')
+      .tap((args) => {
+        args[0].filename = 'resume-css.[name].[contenthash:8].css';
+        args[0].chunkFilename = 'resume-css.[name].[contenthash:8].css';
+        return args;
+      })
+        .end()
+  }
+},
+assetsDir: 'resume-js',
 ```
 
 The `resume-*` prefix is not required to do, but I wanted to ensure there was less chance of conflicts.
 I had to also update the Vercel configuration about these specific routes via the `rewrites` array.
 
-```json
+```
 {"source": "/resume-js/:match*", "destination": "https://mikedidomizio-resume.vercel.app/resume-js/:match*"},
 {"source": "/resume-css:match(.*)", "destination": "https://mikedidomizio-resume.vercel.app/resume-css:match*"},
 ```
 
 The Vercel configuration change is mandatory, but would differ if you choose a different route.
 
-### Content Security Policy issues
+## Content Security Policy issues
 
-The next problem was that the Google fonts under the endpoint`http://mikedidomizio.com/resume` were not loading properly,
+### Google Fonts
+
+The next problem was that the Google fonts under the endpoint `/resume` were not loading properly,
 but were working properly under the `vercel.app` deployments.
 
 I updated the `vercel.json` file to include CSP for that `/resume` endpoint
 
 ```json
-    {
-      "key": "Content-Security-Policy",
-      "value": "default-src 'self'; font-src 'self' fonts.gstatic.com; style-src 'self' fonts.googleapis.com; img-src 'self' data:;"
-    }
+{
+  "key": "Content-Security-Policy",
+  "value": "default-src 'self'; font-src 'self' fonts.gstatic.com; style-src 'self' fonts.googleapis.com; img-src 'self' data:;"
+}
 ```
 
 This allowed me to get around Google Fonts being blocked. Some other options would have been nonces and hashes,
@@ -187,13 +199,12 @@ but this felt like the quickest and simplest solution.
 Google Analytics was also blocked by CSP. The main site had not been setup and the Resume/CV Google Analytics
 was no longer working properly.
 
-It required changes to the `vercel.json` file, that can be quickly taken from [here](https://developers.google.com/tag-platform/security/guides/csp#google_analytics_4_google_analytics).
+The Resume/CV deployment required changes to the `vercel.json` file, that can be quickly taken from [here](https://developers.google.com/tag-platform/security/guides/csp#google_analytics_4_google_analytics).
 
-Finally adding a hash to avoid using [`unsafe-inline`](https://content-security-policy.com/unsafe-inline/).
+Adding a hash to avoid using [unsafe-inline](https://content-security-policy.com/unsafe-inline/).
 
 This is a [quick read](https://content-security-policy.com/hash/) on hashes with CSP that I found helpful.
-
-It tells you how to get the hash via command or through the console error which it did for me
+It tells you how to get the hash via command or through the console error which it did for me:
 
 ```
 Refused to execute inline script because it violates the following Content Security Policy directive: "script-src-elem 'self' *.googletagmanager.com". Either the 'unsafe-inline' keyword, a hash ('sha256-NWf2QfXgstC58zeipPN/8CH5ZLaYLMFh0+dDWU0xbcY='), or a nonce ('nonce-...') is required to enable inline execution.
@@ -205,7 +216,7 @@ Modifying the content security policy to be such:
 script-src-elem 'self' *.googletagmanager.com 'sha256-NWf2QfXgstC58zeipPN/8CH5ZLaYLMFh0+dDWU0xbcY='
 ```
 
-and suggest updating the `<script>` tag in the Vue.js project to include the hash:
+and updating the `<script>` tag in the Vue.js project to include the hash:
 
 ```html
 <script integrity="sha256-NWf2QfXgstC58zeipPN/8CH5ZLaYLMFh0+dDWU0xbcY=" crossorigin="anonymous">
@@ -213,7 +224,37 @@ and suggest updating the `<script>` tag in the Vue.js project to include the has
 
 > Note that the above example is also using subresource integrity or SRI to enforce the hash. You might find it duplicating to have it in both places, but it can serve as a good way to document which hash is for which script.
 
+Finally updating the main site [next.config.js](https://github.com/mikedidomizio/mikedidomizio.com/commit/5aa5da52073239e3ba60c790559901a64d560755) [headers](https://nextjs.org/docs/app/api-reference/next-config-js/headers) to use the values needed for it.
+
+ℹ️ This is modified to be copy/pasted and not exactly what is applied to this project. If it doesn't work check out the `next.config.js`
+in this repo and let me know.
+
+```
+async headers() {
+  return [
+    {
+      source: '/(.*)',
+      headers: [
+        {
+          key: 'Content-Security-Policy',
+          value: `
+            default-src 'self';
+            script-src 'self' https://*.googletagmanager.com;
+            style-src 'self';
+            img-src * blob: data: https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com
+              https://*.g.doubleclick.net https://*.google.com https://*.google.com;
+            font-src 'self';
+          `
+        },
+      ],
+    },
+  ]
+},
+```
+
 ## Conclusion
 
-By configuring Vercel properly it was pretty simple to get two separate apps working alongside together.
-It did take understanding what had to be done to get it to work right but once understood it didn't take much.
+By configuring Vercel it was fairly simple to get two separate apps working alongside together.
+It did take understanding what had to be done to get it to work right but once understood it worked nicely 🎉.
+
+Have you done a similar setup? I'm curious. <TweetIntent text="Let me know!" tweet="@Mike_DiDomizio re:deploying multi apps under via Vercel." />
