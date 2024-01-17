@@ -187,9 +187,17 @@ but this felt like the quickest and simplest solution.
 Google Analytics was also blocked by CSP. The main site had not been setup and the Resume/CV Google Analytics
 was no longer working properly.
 
-It required changes to the `vercel.json` file that can be read up on [here](https://developers.google.com/tag-platform/security/guides/csp#google_analytics_4_google_analytics).
+It required changes to the `vercel.json` file, that can be quickly taken from [here](https://developers.google.com/tag-platform/security/guides/csp#google_analytics_4_google_analytics).
 
 Finally adding a hash to avoid using [`unsafe-inline`](https://content-security-policy.com/unsafe-inline/).
+
+This is a [quick read](https://content-security-policy.com/hash/) on hashes with CSP that I found helpful.
+
+It tells you how to get the hash via command or through the console error which it did for me
+
+```
+Refused to execute inline script because it violates the following Content Security Policy directive: "script-src-elem 'self' *.googletagmanager.com". Either the 'unsafe-inline' keyword, a hash ('sha256-NWf2QfXgstC58zeipPN/8CH5ZLaYLMFh0+dDWU0xbcY='), or a nonce ('nonce-...') is required to enable inline execution.
+```
 
 Modifying the content security policy to be such:
 
@@ -197,13 +205,13 @@ Modifying the content security policy to be such:
 script-src-elem 'self' *.googletagmanager.com 'sha256-NWf2QfXgstC58zeipPN/8CH5ZLaYLMFh0+dDWU0xbcY='
 ```
 
-and optionally updating the `<script>` tag in the Vue.js project to include the hash:
+and suggest updating the `<script>` tag in the Vue.js project to include the hash:
 
 ```html
 <script integrity="sha256-NWf2QfXgstC58zeipPN/8CH5ZLaYLMFh0+dDWU0xbcY=" crossorigin="anonymous">
 ```
 
-This is a [quick read](https://content-security-policy.com/hash/) on hashes with CSP that I found helped.
+> Note that the above example is also using subresource integrity or SRI to enforce the hash. You might find it duplicating to have it in both places, but it can serve as a good way to document which hash is for which script.
 
 ## Conclusion
 
