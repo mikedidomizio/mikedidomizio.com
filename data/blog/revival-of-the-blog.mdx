@@ -2,23 +2,14 @@
 title: Deploying a Next.js app alongside a Vue.js app on Vercel (Revival of the Blog)
 date: '2024-01-16'
 tags: ['content security policy', 'csp', 'google analytics', 'next.js', 'vercel', 'vercel.json', 'vue.js']
-draft: false
+draft: true
 ---
 
 import {ImageWithCaption} from '@/components/ImageWithCaption'
 import {TweetIntent} from '@/components/TweetIntent'
+import TOCInline from "pliny/ui/TOCInline";
 
-## Table of Contents
-
-- [Introduction](#intro)
-- [Blog Shutdown](#the-blog-shutdown)
-- [Move to AWS S3](#the-move-to-aws-s3)
-- [Busy in 2023](#busy-in-2023)
-- [The Issues](#the-issues)
-  - [Creating the Vercel Configuration](#creating-the-verceljson-configuration)
-  - [Content Security Policy Issues](#content-security-policy-issues)
-- [Shout Outs](#shout-outs)
-- [Conclusion](#conclusion)
+<TOCInline toc={props.toc} toHeading={3} />
 
 If you want to go jump straight to the how it was done, [click here](#the-issues)
 
