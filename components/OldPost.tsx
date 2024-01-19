@@ -1,3 +1,5 @@
+import { Pill } from './Pill'
+
 export const OldPost = () => {
   return (
     <div className="border-l-4 border-orange-500 bg-orange-100 p-2 text-orange-700" role="alert">
@@ -8,8 +10,16 @@ export const OldPost = () => {
 
 export const OldPostPill = () => {
   return (
-    <span className="btn-primary mr-2 rounded-full border-orange-500 bg-orange-100 px-4 py-1 font-sans text-sm font-semibold text-orange-700 no-underline focus:outline-none">
-      Old
+    <span className="rounded-full bg-orange-100 text-orange-700">
+      <Pill>Old</Pill>
+    </span>
+  )
+}
+
+export const NewPostPill = () => {
+  return (
+    <span className="rounded-full bg-blue-500 text-white">
+      <Pill>New</Pill>
     </span>
   )
 }

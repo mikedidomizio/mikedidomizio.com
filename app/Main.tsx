@@ -3,8 +3,8 @@ import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import { formatDate } from 'pliny/utils/formatDate'
 import NewsletterForm from 'pliny/ui/NewsletterForm'
-import { OldPostPill } from '@/components/OldPost'
-import { isDateOlderThanYears } from '../helpers/isDateOlderThanYears'
+import {NewPostPill, OldPostPill} from '@/components/OldPost'
+import {isDateLessThanDays, isDateOlderThanYears} from '../helpers/isDateOlderThanYears'
 
 const MAX_DISPLAY = 5
 
@@ -47,7 +47,8 @@ export default function Home({ posts }) {
                                 {title}
                               </Link>
                             </h2>
-                            <span>{isDateOlderThanYears(date) ? <OldPostPill /> : null}</span>
+                            {isDateLessThanDays(date) ? <NewPostPill /> : null}
+                            {isDateOlderThanYears(date) ? <OldPostPill /> : null}
                           </div>
                           <div className="flex flex-wrap">
                             {tags.map((tag) => (
