@@ -3,8 +3,8 @@ import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import { formatDate } from 'pliny/utils/formatDate'
 import NewsletterForm from 'pliny/ui/NewsletterForm'
-import {NewPostPill, OldPostPill} from '@/components/OldPost'
-import {isDateLessThanDays, isDateOlderThanYears} from '../helpers/isDateOlderThanYears'
+import { NewPostPill, OldPostPill } from '@/components/OldPost'
+import { isDateLessThanDays, isDateOlderThanYears } from '../helpers/isDateOlderThanYears'
 
 const MAX_DISPLAY = 5
 
