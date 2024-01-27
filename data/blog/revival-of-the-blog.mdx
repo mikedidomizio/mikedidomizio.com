@@ -1,6 +1,6 @@
 ---
-title: Deploying a Next.js app alongside a Vue.js app on Vercel (Revival of the Blog)
-date: '2024-01-18'
+title: Deploying a Next.js app with a Vue.js app on Vercel (Revival of the Blog)
+date: '2024-01-29'
 tags: ['content security policy', 'csp', 'google analytics', 'next.js', 'vercel', 'vue.js']
 draft: false
 ---
@@ -9,14 +9,14 @@ import {ImageWithCaption} from '@/components/ImageWithCaption'
 import {TweetIntent} from '@/components/TweetIntent'
 import TOCInline from "pliny/ui/TOCInline";
 
-<TOCInline toc={props.toc} toHeading={3} />
+<TOCInline toc={props.toc} toHeading={4} />
 
-This website is primarily Next.js, with Vue.js bolted on for an endpoint, then deployed via Vercel.
-Using Next.js to power the blog, and Vue.js for the CV/Resume.
+This website is primarily Next.js, with Vue.js bolted on for a single endpoint, then deployed via Vercel.
+Using Next.js to power the blog, and Vue.js for my résumé.
 
-You can read how I did it and apply what I learned to your own situation.
+I'm hoping uou can read how I did it and apply what I learned to your own situation.
 
-If you want to jump straight to how it was done, [click here](#the-issues).
+If you want to jump straight to how it was done, [click here](#how-to).
 
 ## Intro
 
@@ -46,45 +46,53 @@ and the rest happened in 2014 (oh ChatGPT), so I asked for more:
 A lot has changed since that time.
 
 When I initially created the blog, using WordPress was the obvious choice.
+It was everywhere and it was awesome, applying plugins and themes with the click of a button to get what you needed.
 Although I haven't used it in forever, I'm confident that, for many purposes,
 WordPress is still the de facto choice.
 
-## The Blog ShutDown
+### The blog shutdown
 
-I decided to shut it down at one point though because it was just unnecessary hosting costs.
+In 2024, I decided to shut it down because it was just unnecessary hosting costs and I wasn't using it much.
 I was working a new job, I wasn't writing anything. I was still doing the occasional
 OSS contribution and small projects. The hosting was costing me a few bucks a month, and I felt it wasn't worth continuing, so I decided to cut it.
 
-## The move to AWS S3
+### The move to AWS S3
 
-I decided to remove the blog and just have by resume/CV up.
-By removing the blog, which required a database, I could just opt for a static site solution.
+I decided to remove the blog and just have my résumé up.
+By removing the WordPress blog, which required a database, I could just opt for a static site solution.
 
-At that time my CV was just HTML/CSS so moving it into an S3 bucket and pointing the domain to the bucket was a viable solution.
+At that time my résumé was just HTML/CSS so moving it into an S3 bucket and pointing the domain to the bucket was a viable solution.
+(Note: This may be still a solution today for some things but it did have a bit of a "cold start" problem).
 
-Mid-2020 I moved my CV into [source control](https://github.com/mikedidomizio/mikedidomizio-resume/commit/31760f20710a4a369e6cb115ebb769663db49323).
+Mid-2020 I moved my résumé into [source control](https://github.com/mikedidomizio/mikedidomizio-resume/commit/31760f20710a4a369e6cb115ebb769663db49323).
 This allowed me to have a history of changes, and allow me to revert if I needed.
-It was also just nice to see a progression over time as skills and line items changed.
-It's something I suggest everyone to do.
+It was also just nice to see a progression over time as skills and items changed.
+It's something I suggest everyone to do to be honest.
 
-At the start of 2021, I [converted the project](https://github.com/mikedidomizio/mikedidomizio-resume/commit/81a17712c0edbd1b95dcddf1793fefd6a02ce27c) to use Vue.js.
-I wanted to have easy to maintain consistency throughout the page. Which could be done by breaking the CV into components.
+At the start of 2021, I [converted the résumé](https://github.com/mikedidomizio/mikedidomizio-resume/commit/81a17712c0edbd1b95dcddf1793fefd6a02ce27c) from HTML to Vue.js.
+I wanted to have an easy to maintain look and consistency throughout the page. Which could be done by breaking the résumé into components.
 
-When I pushed to the default branch, it would build it and deploy the static build to S3.
+On top of automatic continuous deployment on merge, it has visual regression tests to verify it looked good on any screen size, and
+even checked that it was under two pages when printed.
 
-## Busy in 2023
+### Busy in 2023
 
 Late 2023 after working on a number of personal projects I wanted to get back into more writing.
 My original thought was to go back to WordPress,
-but I haven't really worked on PHP 5.X. I chose to go the JavaScript route as it's something I've
-become more familiar with over time and work with every day.
+but I haven't really worked on PHP in many years. I chose to go the JavaScript route as it's something I've
+become more familiar with over time and work with every day. With full stack frameworks these days
+I could work under one language and have it as simple or complex as I needed it to be.
 
-I thought to go with Remix but I'm still not sure I'm a fan of it.
-I use Next.js with a lot more of my projects and am more comfortable with it.
+I thought to go with Remix for the blog, but I'm still not sure if I'm a fan of it at this time.
+There's some gotchas that I've hit in previous projects that weren't documented and required a bit of digging,
+and some things that just worked no problem with Next.js.
+
+I use Next.js with a lot more of my projects and am more comfortable with it, so I decided to shift in that direction.
 
 I started building out a blog site but my issues were:
 
-- It was not very pretty, but I looked at a few others in the industry (like [Dan Abramov](https://overreacted.io/) and [Lee Robinson](https://leerob.io/)) and they have decided to keep things simple. I felt it was acceptable.
+- It was not very pretty, but I looked at a few others in the industry and they have decided to keep things simple.
+I felt it would be okay.
 - It would lack a lot of features that I wanted to have.
 
 but the biggest thing was I just wanted to get back to writing, and not waste time coding from scratch a blog.
@@ -92,9 +100,11 @@ but the biggest thing was I just wanted to get back to writing, and not waste ti
 I found this [Next.js Tailwind Starter Blog](https://github.com/timlrx/tailwind-nextjs-starter-blog), and it looked good and seemed to fit all my needs.
 My plan was to deploy it through Vercel to keep things simple.
 
-## The issues
+## Setting up multiple apps in Vercel under one domain
 
-The first issue was how was I going to deploy a Next.js app and Vue.js app together on Vercel under the same domain?
+The rest of this is going to be discussing how you can have multiple projects under one domain deploying with Vercel.
+
+For myself, the first thought was how was I going to deploy a Next.js app and Vue.js app together on Vercel under one domain?
 
 - https://mikedidomizio.com/resume is a [Vue.js application](https://github.com/mikedidomizio/mikedidomizio-resume).
 - https://mikedidomizio.com (and all other routes) is a [Next.js application](https://github.com/mikedidomizio/mikedidomizio.com).
@@ -102,11 +112,22 @@ The first issue was how was I going to deploy a Next.js app and Vue.js app toget
 My first thought was do I set it up as a monorepo to host the two projects to be deployed together?
 
 I didn't really want that, I (currently) like the separation of the two projects.
-Two separate git histories, easy to maintain separately and if I need to separate them again, it's fairly easy to do so.
+Two separate git histories, easy to maintain and build separately and if I need to separate them again, it's fairly easy to do so.
 
-## Creating the vercel.json configuration
+### Changing the Vercel project configuration and deploying with Vercel
 
-Vercel has the ability to include a `vercel.json` file to alter the [project configuration](https://vercel.com/docs/projects/project-configuration).
+[Vercel](https://vercel.com) is a PaaS company that maintains the Next.js project. They allow you to
+use their platform to deploy, monitor, and maintain projects (not just Next.js) with a lot of ease things
+that you would once have to manually be setup all by yourself.
+
+I've used Vercel since 2020, and have deployed quite a few projects.
+If you've used Netlify or Heroku, it's in the same vein.
+
+For most use cases, you would connect your Git repository to a Vercel project, apply a domain to that project, and you would be done.
+I wanted to have two Git projects in two different frameworks, under two different Vercel projects, continuously deployed and accessed under one domain.
+
+Vercel has the ability to include a `vercel.json`
+[project configuration](https://vercel.com/docs/projects/project-configuration) file that can help with that.
 
 I wanted to have Vercel point to a different deployment if a user goes to the `/resume` endpoint. This could
 be done with their [rewrites](https://vercel.com/docs/projects/project-configuration#rewrites).
@@ -119,9 +140,11 @@ This was accomplished pretty simply with just having the `source` be the endpoin
 
 This can be verified to be working by visiting your main deployment URL and visiting the `source` endpoint and verifying if that goes to the `destination`.
 
-I was immediately hit with one issue though which is the CSS/JS not loading properly.
+### Dealing with resource issues
+
+I was immediately hit with one issue though which is the CSS/JS not loading properly in the résumé.
 The simple solution would be to also forward those routes as well, but I chose to have Vue build to differentiate
-these files as `resume-*` directories/files.
+these files as `resume-*` directories/files because `css` and `js` directories are pretty generic and I didn't want any conflicts.
 
 Going from this:
 
@@ -166,7 +189,7 @@ chainWebpack: (config) => {
 assetsDir: 'resume-js',
 ```
 
-The `resume-*` prefix is not required to do, but I wanted to ensure there was less chance of conflicts.
+The `resume-*` prefix is not required to do, but again I wanted to ensure there was less chance of conflicts.
 I had to also update the Vercel configuration to make it aware of these specific routes though the `rewrites` array.
 
 ```
@@ -174,14 +197,16 @@ I had to also update the Vercel configuration to make it aware of these specific
 {"source": "/resume-css:match(.*)", "destination": "https://mikedidomizio-resume.vercel.app/resume-css:match*"},
 ```
 
-The Vercel configuration change is mandatory, but would differ if you take a different approach.
+The Vercel configuration change is mandatory, but you don't have to do change the filename/directory output like I did.
 
-## Content Security Policy issues
+## Addressing Content Security Policy (CSP) Challenges
 
-### Google Fonts
+I encountered a few issues loading third party resources.
+
+### Google Fonts not loading
 
 The next problem was that the Google fonts under the endpoint `/resume` were not loading properly,
-but were working properly under the `vercel.app` deployments.
+but were working properly under the "vercel.app" deployment URL.
 
 I updated the `vercel.json` file to include CSP for that `/resume` endpoint
 
@@ -192,17 +217,18 @@ I updated the `vercel.json` file to include CSP for that `/resume` endpoint
 }
 ```
 
+This is just saying "only load my own fonts and styles to load, but also allow anything loaded fromm these Google domains."
 This allowed me to get around Google Fonts being blocked, which can be verified that the font loads, either visually or by the network panel of your browser.
 Some other options would have been nonces and hashes, but this felt like the quickest and simplest solution.
 
-### Google Analytics
+### Google Analytics not working
 
-Google Analytics (referred sometimes here as GA) was also blocked by CSP. The main site had not been setup and the Resume/CV Google Analytics
+Google Analytics (referred here on as GA) was also blocked by CSP. The main site had not been setup and the résumé GA
 was no longer working properly.
 
-The Resume/CV deployment required changes to the `vercel.json` file,
+The résumé deployment required changes to the `vercel.json` file,
 that can be quickly taken from [here](https://developers.google.com/tag-platform/security/guides/csp#google_analytics_4_google_analytics).
-The rest of the document will be working towards Google Analytics 4.
+The rest of the document will be working towards GA 4.
 
 Adding a hash to avoid using [unsafe-inline](https://content-security-policy.com/unsafe-inline/).
 
@@ -227,7 +253,8 @@ and updating the `<script>` tag in the Vue.js project to include the hash:
 
 > Note that the above example is also using subresource integrity or SRI to enforce the hash. You might find it duplicating to have it in both places, but it can serve as a good way to document which hash is for which script.
 
-I like that approach. You can verify the above works by loading up Google Analytics Real Time dashboard, visiting the endpoint in another tab and see if GA reports a new user.
+I like that approach. Anything to help me cross reference it in the future.
+You can verify the above works by loading up GA Real Time dashboard, visiting the endpoint in another tab and see if GA reports a new user.
 
 Finally updating the main site [next.config.js](https://github.com/mikedidomizio/mikedidomizio.com/commit/5aa5da52073239e3ba60c790559901a64d560755) [headers](https://nextjs.org/docs/app/api-reference/next-config-js/headers) to use the values needed for it.
 
@@ -258,17 +285,17 @@ async headers() {
 },
 ```
 
-You can verify the above by going to any other endpoint and changing pages and verifying that Google Analytics reports the other pages.
+You can verify the above by going to any other endpoint and changing pages and verifying that GA reports the other pages.
 
 The CSP stuff can be a bit tricky but the errors I find are pretty telling of what is going on. Read the CSP links in this post, and break down the errors that your browser reports.
 
 ## Shout-Outs
 
-[content-security-policy.com](https://content-security-policy.com/) is a really nice website and good resource regarding CSP.
+[content-security-policy.com](https://content-security-policy.com/) is a really nice website and good resource regarding content security policy.
 
 ## Maintenance
 
-This should be fairly stable with Google Analytics 4, but it's always possible things change.
+This should be fairly stable with GA 4, but it's always possible things change.
 Vercel/Next.js changes may require updates to continue this properly being deployed.
 
 As of writing this the versions used in these projects are:
@@ -281,8 +308,8 @@ If significant time has passed since this has been published consider that some 
 
 ## Conclusion
 
-By configuring Vercel it was fairly simple to get two separate apps working alongside together.
-It does take understanding what has to be done to get it to work right but once understood it worked nicely 🎉.
+By configuring Vercel it was fairly simple to get two separate apps working alongside together under one domain.
+It does take understanding what has to be done to get it to work right but once understood it worked really nicely 🎉.
 
-Have you done a similar or alternate setup? I'm curious to see what you have done.
+What challenges have you faced with a similar setup? Share your experiences with me.
 <TweetIntent text="Let me know!" tweet="@Mike_DiDomizio re:deploying multi apps under Vercel." />.
