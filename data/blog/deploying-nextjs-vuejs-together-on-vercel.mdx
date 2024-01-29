@@ -227,7 +227,7 @@ I updated the `vercel.json` file to include CSP for that `/resume` endpoint
 }
 ```
 
-This is just saying "only load my own fonts and styles to load, but also allow anything loaded fromm these Google domains."
+This is just saying "only load my own fonts and styles to load, but also allow anything loaded from these Google domains."
 This allowed me to get around Google Fonts being blocked, which can be verified that the font loads, either visually or by the network panel of your browser.
 Some other options would have been nonces and hashes, but this felt like the quickest and simplest solution.
 
@@ -240,8 +240,7 @@ The résumé deployment required changes to the `vercel.json` file,
 that can be quickly taken from [here](https://developers.google.com/tag-platform/security/guides/csp#google_analytics_4_google_analytics).
 The rest of the document will be working towards GA 4.
 
-Adding a hash to avoid using [unsafe-inline](https://content-security-policy.com/unsafe-inline/).
-
+To avoid using [unsafe-inline](https://content-security-policy.com/unsafe-inline/) I decided to go with a hash.
 This is a [quick read](https://content-security-policy.com/hash/) on hashes with CSP.
 It tells you how to get the hash via command or through the console error which did it for me:
 
