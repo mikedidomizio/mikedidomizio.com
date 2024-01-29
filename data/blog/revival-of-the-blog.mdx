@@ -14,17 +14,20 @@ import TOCInline from "pliny/ui/TOCInline";
 This website is primarily Next.js, with Vue.js bolted on for a single endpoint, then deployed via Vercel.
 Using Next.js to power the blog, and Vue.js for my résumé.
 
-I'm hoping uou can read how I did it and apply what I learned to your own situation.
+I'm hoping you can read how I did it and apply what I learned to your own situation.
 
-If you want to jump straight to how it was done, [click here](#how-to).
+If you want to jump straight to how it was done, [click here](#setting-up-separate-repos-in-vercel-under-one-domain).
 
-## Intro
+## A little bit of history
 
-Just to give a bit of history, the original blog was a WordPress installation.
+Just to give a bit of history, the original blog was a WordPress installation that was set up in 2013.
 
 <ImageWithCaption image={
     <img alt="mikedidomizio.com in 2016-03-23" src="/static/images/revival-of-the-blog/mikedidomiziocom-20160323193610.webp" />}
                   caption="It ain't much, but it's honest work." />
+
+Blogging was a popular activity, much like how everyone has a podcast today.
+I only made a few blog posts, most without much effort, other than my blog post about building [an iPhone application](/blog/building-my-first-phonegap-iOS-app-and-what-I-learned).
 
 2013 was quite a while back, especially when we're talking about the internet.
 I asked ChatGPT (that didn't exist then) "what are 10 software development events that happened in 2013."
@@ -50,19 +53,19 @@ It was everywhere and it was awesome, applying plugins and themes with the click
 Although I haven't used it in forever, I'm confident that, for many purposes,
 WordPress is still the de facto choice.
 
-### The blog shutdown
+### Putting the blog on pause
 
-In 2024, I decided to shut it down because it was just unnecessary hosting costs and I wasn't using it much.
+In 2014, I decided to shut it down because it was just unnecessary hosting costs and I wasn't using it much.
 I was working a new job, I wasn't writing anything. I was still doing the occasional
 OSS contribution and small projects. The hosting was costing me a few bucks a month, and I felt it wasn't worth continuing, so I decided to cut it.
 
-### The move to AWS S3
+### Transitioning to Amazon S3
 
 I decided to remove the blog and just have my résumé up.
 By removing the WordPress blog, which required a database, I could just opt for a static site solution.
 
 At that time my résumé was just HTML/CSS so moving it into an S3 bucket and pointing the domain to the bucket was a viable solution.
-(Note: This may be still a solution today for some things but it did have a bit of a "cold start" problem).
+(Note: This may be still a solution today for some things, but it did have a bit of a "cold start" problem).
 
 Mid-2020 I moved my résumé into [source control](https://github.com/mikedidomizio/mikedidomizio-resume/commit/31760f20710a4a369e6cb115ebb769663db49323).
 This allowed me to have a history of changes, and allow me to revert if I needed.
@@ -73,13 +76,17 @@ At the start of 2021, I [converted the résumé](https://github.com/mikedidomizi
 I wanted to have an easy to maintain look and consistency throughout the page. Which could be done by breaking the résumé into components.
 
 On top of automatic continuous deployment on merge, it has visual regression tests to verify it looked good on any screen size, and
-even checked that it was under two pages when printed.
+even checks that it is max two pages when printed.
 
-### Busy in 2023
+### Rekindling my passion for software development writing
 
-Late 2023 after working on a number of personal projects I wanted to get back into more writing.
-My original thought was to go back to WordPress,
-but I haven't really worked on PHP in many years. I chose to go the JavaScript route as it's something I've
+I spent a bunch of time in 2023 writing documentation and guides at the company I work at, as well working on my own personal projects.
+By the end of 2023, I realized I had been involved in some interesting projects that unfortunately didn't gain the
+attention I felt they deserved.
+I wanted to write about these projects to give people a glimpse into my thought process,
+the challenges faced, how I approached problem-solving, and ultimately, the outcomes achieved.
+My original thought for writing was to go back to WordPress,
+but I haven't worked on PHP in many years. I chose to go the JavaScript route as it's something I've
 become more familiar with over time and work with every day. With full stack frameworks these days
 I could work under one language and have it as simple or complex as I needed it to be.
 
@@ -100,25 +107,25 @@ but the biggest thing was I just wanted to get back to writing, and not waste ti
 I found this [Next.js Tailwind Starter Blog](https://github.com/timlrx/tailwind-nextjs-starter-blog), and it looked good and seemed to fit all my needs.
 My plan was to deploy it through Vercel to keep things simple.
 
-## Setting up multiple apps in Vercel under one domain
-
-The rest of this is going to be discussing how you can have multiple projects under one domain deploying with Vercel.
+## Setting up separate projects in Vercel under one domain
 
 For myself, the first thought was how was I going to deploy a Next.js app and Vue.js app together on Vercel under one domain?
 
-- https://mikedidomizio.com/resume is a [Vue.js application](https://github.com/mikedidomizio/mikedidomizio-resume).
-- https://mikedidomizio.com (and all other routes) is a [Next.js application](https://github.com/mikedidomizio/mikedidomizio.com).
+What I wanted was:
 
-My first thought was do I set it up as a monorepo to host the two projects to be deployed together?
+- https://mikedidomizio.com/resume to be handled by a [Vue.js application](https://github.com/mikedidomizio/mikedidomizio-resume).
+- https://mikedidomizio.com (and all other routes) to be handled by a [Next.js application](https://github.com/mikedidomizio/mikedidomizio.com).
+
+Do I set up both projects under a monorepo to be deployed together?
 
 I didn't really want that, I (currently) like the separation of the two projects.
-Two separate git histories, easy to maintain and build separately and if I need to separate them again, it's fairly easy to do so.
+Two separate git histories, easy to maintain, deploy separately and if I need to change things again, it's fairly easy to do so.
 
-### Changing the Vercel project configuration and deploying with Vercel
+### Deploying with Vercel and modifying the Vercel project configuration
 
-[Vercel](https://vercel.com) is a PaaS company that maintains the Next.js project. They allow you to
-use their platform to deploy, monitor, and maintain projects (not just Next.js) with a lot of ease things
-that you would once have to manually be setup all by yourself.
+[Vercel](https://vercel.com) is a PaaS company that maintains Next.js. They allow you to
+use their platform to deploy, monitor, and maintain projects (not just Next.js) with a lot of ease.  Things
+that you would once have to manually be set up all by yourself in the past.
 
 I've used Vercel since 2020, and have deployed quite a few projects.
 If you've used Netlify or Heroku, it's in the same vein.
@@ -129,10 +136,10 @@ I wanted to have two Git projects in two different frameworks, under two differe
 Vercel has the ability to include a `vercel.json`
 [project configuration](https://vercel.com/docs/projects/project-configuration) file that can help with that.
 
-I wanted to have Vercel point to a different deployment if a user goes to the `/resume` endpoint. This could
-be done with their [rewrites](https://vercel.com/docs/projects/project-configuration#rewrites).
+Since I wanted to have Vercel point to a different deployment if a user goes to the `/resume` endpoint,
+I could accomplish this with [rewrites](https://vercel.com/docs/projects/project-configuration#rewrites).
 
-This was accomplished pretty simply with just having the `source` be the endpoint I wanted, and the `destination` point to the other Vercel deployment in my `vercel.json` file:
+This was solved pretty simply with just having the `source` be the endpoint I wanted, and the `destination` point to the other Vercel deployment in my `vercel.json` file:
 
 ```json
 {"source": "/resume", "destination": "https://mikedidomizio-resume.vercel.app/"}
@@ -142,9 +149,10 @@ This can be verified to be working by visiting your main deployment URL and visi
 
 ### Dealing with resource issues
 
-I was immediately hit with one issue though which is the CSS/JS not loading properly in the résumé.
-The simple solution would be to also forward those routes as well, but I chose to have Vue build to differentiate
-these files as `resume-*` directories/files because `css` and `js` directories are pretty generic and I didn't want any conflicts.
+I was immediately hit with one issue though which is the CSS/JS not loading properly on the résumé page.
+The issue was that the routes for those resources were not accounted for and couldn't be found under the Next.js deployment.
+The simple solution would be to also forward those routes as well to the Vue.js deployment. I chose to have Vue build to differentiate
+these files as `resume-*` directories/files because `css` and `js` directories are pretty generic and I wanted the risk of conflicts.
 
 Going from this:
 
@@ -169,7 +177,7 @@ app/
 └── index.html
 ```
 
-by changing the Vue.js configuration (`vue.config.js`) to include
+by changing the Vue.js configuration (`vue.config.js`) to include:
 
 ```
 // all CSS files to be prefixed with `resume-css`
@@ -188,6 +196,8 @@ chainWebpack: (config) => {
 // assets to be under `resume-js` directory (I just had js files but you may have other files in here and want to make the directory more generic named)
 assetsDir: 'resume-js',
 ```
+
+so that it outputs the files/directories in a fairly unique way.
 
 The `resume-*` prefix is not required to do, but again I wanted to ensure there was less chance of conflicts.
 I had to also update the Vercel configuration to make it aware of these specific routes though the `rewrites` array.
@@ -223,7 +233,7 @@ Some other options would have been nonces and hashes, but this felt like the qui
 
 ### Google Analytics not working
 
-Google Analytics (referred here on as GA) was also blocked by CSP. The main site had not been setup and the résumé GA
+Google Analytics (referred here on as GA) was also blocked by CSP. The main site had not been set up and the résumé GA
 was no longer working properly.
 
 The résumé deployment required changes to the `vercel.json` file,
@@ -312,4 +322,4 @@ By configuring Vercel it was fairly simple to get two separate apps working alon
 It does take understanding what has to be done to get it to work right but once understood it worked really nicely 🎉.
 
 What challenges have you faced with a similar setup? Share your experiences with me.
-<TweetIntent text="Let me know!" tweet="@Mike_DiDomizio re:deploying multi apps under Vercel." />.
+Let me know on&nbsp;<TweetIntent text="Twitter/X" tweet="@Mike_DiDomizio re:deploying multi apps under Vercel." /> or [LinkedIn](https://www.linkedin.com/in/mikedidomizio/).
