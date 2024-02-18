@@ -11,6 +11,7 @@ import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 import { OldPost } from '@/components/OldPost'
 import { isDateOlderThanYears } from '../helpers/isDateOlderThanYears'
+import { CustomNewsletterForm } from '@/components/CustomNewsletterForm'
 
 const editUrl = (path) => `${siteMetadata.siteRepo}/blob/main/data/${path}`
 const discussUrl = (path) =>
@@ -108,6 +109,11 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                 {` • `}
                 <Link href={editUrl(filePath)}>View on GitHub</Link>
               </div>
+
+              <div className="py-6">
+                <CustomNewsletterForm />
+              </div>
+
               {siteMetadata.comments && (
                 <div
                   className="pb-6 pt-6 text-center text-gray-700 dark:text-gray-300"
