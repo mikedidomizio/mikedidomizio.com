@@ -2,9 +2,9 @@ import Link from '@/components/Link'
 import Tag from '@/components/Tag'
 import siteMetadata from '@/data/siteMetadata'
 import { formatDate } from 'pliny/utils/formatDate'
-import NewsletterForm from 'pliny/ui/NewsletterForm'
 import { NewPostPill, OldPostPill } from '@/components/OldPost'
 import { isDateLessThanDays, isDateOlderThanYears } from '../helpers/isDateOlderThanYears'
+import { CustomNewsletterForm } from '@/components/CustomNewsletterForm'
 
 const MAX_DISPLAY = 5
 
@@ -90,7 +90,7 @@ export default function Home({ posts }) {
       )}
       {siteMetadata.newsletter?.provider && (
         <div className="flex items-center justify-center pt-4">
-          <NewsletterForm />
+          <CustomNewsletterForm />
         </div>
       )}
     </>
