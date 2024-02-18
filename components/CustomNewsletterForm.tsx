@@ -50,36 +50,34 @@ export const CustomNewsletterForm = ({
     <div>
       <div className="pb-1 text-lg font-semibold text-gray-800 dark:text-gray-100">{title}</div>
       {subscribed ? (
-        <div className="text-center">
-          Awesome, please check your email to confirm your sign up 🎉
-        </div>
+        <>Awesome, please check your email to confirm your sign up 🎉</>
       ) : (
-        <form className="flex flex-col sm:flex-row" onSubmit={subscribe}>
-          <div className="mb-2 flex flex-col gap-x-2 sm:flex-row md:mb-0">
-            <div className="mb-2 md:mb-0">
-              <label htmlFor="firstName-input">
+        <form className="flex flex-col gap-x-2 md:flex-row" onSubmit={subscribe}>
+          <div className="flex grow flex-col gap-x-2 md:mb-0 md:flex-row">
+            <div className="mb-2 sm:w-full md:mb-0">
+              <label htmlFor="firstName-input block md:inline">
                 <span className="sr-only">First Name (optional)</span>
                 <input
                   autoComplete="name"
-                  className="w-72 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-600 dark:bg-black"
+                  className="w-full rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-600 dark:bg-black"
                   id="firstName-input"
                   name="firstName"
-                  placeholder="Enter your first name (optional)"
+                  placeholder="First Name (optional)"
                   ref={firstNameRef}
                   type="text"
                   disabled={subscribed}
                 />
               </label>
             </div>
-            <div>
-              <label htmlFor="email-input">
+            <div className="mb-2 sm:w-full md:mb-0">
+              <label htmlFor="email-input block md:inline">
                 <span className="sr-only">Email address</span>
                 <input
                   autoComplete="email"
-                  className="w-72 rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-600 dark:bg-black"
+                  className="w-full rounded-md px-4 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-primary-600 dark:bg-black"
                   id="email-input"
                   name="email"
-                  placeholder="Enter your email"
+                  placeholder="Email Address"
                   ref={emailRef}
                   required
                   type="email"
@@ -88,9 +86,9 @@ export const CustomNewsletterForm = ({
               </label>
             </div>
           </div>
-          <div className="flex w-full rounded-md shadow-sm sm:ml-3 sm:mt-0">
+          <div className="flex w-full whitespace-nowrap rounded-md shadow-sm md:w-36">
             <button
-              className={`w-full rounded-md bg-primary-500 px-4 py-2 font-medium text-white sm:py-0 ${
+              className={`w-full rounded-md bg-primary-500 px-4 py-2 font-medium text-white ${
                 subscribed ? 'cursor-default' : 'hover:bg-primary-700 dark:hover:bg-primary-400'
               } focus:outline-none focus:ring-2 focus:ring-primary-600 focus:ring-offset-2 dark:ring-offset-black`}
               type="submit"
