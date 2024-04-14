@@ -1,14 +1,14 @@
 ---
-title: The Cost of "Doing it Later"
+title: The Cost of “Doing it Later”
 date: '2024-04-16'
 tags: ['tests', 'testing']
 draft: false
 ---
 
-Have you ever heard someone say "I'll add tests later", "I'll add tests in the next pull request"?
+Have you ever asked someone to add tests and they respond with “I'll add tests later”, “I'll add tests in the next pull request”?
 
 But will it get done right away?  Will all the necessary test cases be remembered?  Will they remember
-to let me know when they do add them, how will I know?
+to let me know when they do add them, how else will I know?
 
 The truth is there are many scenarios that can happen between now and that time:
 
@@ -18,28 +18,28 @@ The truth is there are many scenarios that can happen between now and that time:
 - Forget to do them
 - Get sick
 - Injury
-- A loved one die
+- A loved one die / bereavement period
 - Change teams
 - Team dissolves
 - Change companies
 - Die
 
-We can try and plan what we are working on in the future with sprint planning, roadmaps, backlog/tech debt items, but the truth is life in unpredictable and can throw us curveballs.
-The opportunity to right things may never come.
+We can try and squeeze something into the next sprint planning, roadmaps, backlog/tech debt items, but the truth is life in unpredictable and can throw us curveballs.
+Understand that the opportunity to right things may never come.
 
-_It happens more than you think_.
+It happens more than you think.
 
-Whenever I hear "I'll do it later", it irks me a bit; because I've seen seen many occurrences where doing it later never ends up happening.
+Whenever I'm hit with “I'll do it later”, it irks me a bit; because I've seen many occurrences where doing it later never ends up happening.
+By postponing tests, you leave things vulnerable.
 
-We know why it's important to write tests, but why is it important to write them *right now*:
+We know why it's important to write tests, but why is it important to write them **right now**:
 
 1. Code quality assurance
-    - I can sleep confidently knowing that to the best of my abilities I've made my code in the current state well tested.
-    - I have tests to prevent regressions from occurring between now and when I finally get to it.
-    - I don't have to worry about another person coming in and breaking things. What if a code change on top of yours introduces a regression and it all makes it into production, "why didn't you add tests"?
-    - I can avoid something being sent back because a tester or a stakeholder saying it doesn't work as expected. Sometimes things work while we're working away and by the time it gets to pull request it's busted.
+    - I can sleep confidently knowing that to the best of my abilities I've left my code in the current state well tested.
+    - I don't have to worry about another person coming in and breaking things between now and then. What if a code change on top of yours introduces a regression and it all makes it into production, “why didn't you add tests”?
+    - I can avoid something being sent back because a tester or a stakeholder saying it doesn't work as expected. Sometimes things work while we're working away and by the time it gets to pull request it's busted, it happens.
 
-2. Self-documenting - Tests help document the expectations on how the application is supposed to work, they are the real source of truth.
+2. Self-documenting - Tests help document the behaviour and expectations on how the application is supposed to work, to me, they are the real source of truth.
 Without tests, what do you actually know about a certain piece of code's functionality?
     - How useful is `git blame` for something that has changed many times, moved files, and had many updates?  What will this exactly help with?
     - Are you going to dig through 4-year-old JIRAs to find out what the expectations were at that time? What if it was poorly documented? What if those expectations changed since that JIRA? What if those people that know are no longer around?
@@ -48,23 +48,20 @@ What do I mean when I say that tests are the source of truth?:
 
 > When I do this, I expect this to happen
 
-TODO explain more on what it means
-
-Source control systems can change, JIRA can be substituted for a different tool. Tests live permanently with the code base, no matter what, they will be there forever and
-will only go away when they are no longer needed or the functionality changes.
+Source control systems can change, JIRA can be substituted for a different tool. Tests live permanently with the code base, no matter what they will be there forever and
+will only go away when they are no longer needed, or get updated when functionality changes.
 If you think the chances of anything like that happening to you are unlikely, I'm sure there are plenty of people/teams that also thought the same thing.
-I guarantee as you read this, some team is migrating from one system to another.
 
 3. Team confidence - As a code reviewer I have reassurance the author has done their due diligence with fixing this bug, or adding this feature. Besides, it makes it easier to review (and faster to merge).
 4. Team morale - It can be very frustrating to work on a code base that has shaky legs. Do you want to work on a code base with gaps in testing? Do you enjoy playing the game of whack-a-mole with bugs?
 5. Maintenance, tech debt - As a code base evolves and becomes more complex, how can anyone confidently refactor without proper testing?
 
-Next time you hear someone say "I'll add it in the next pull request", take a second to think what the ramifications are of not doing it *EVER*:
+Next time you hear someone say “I'll add it in the next pull request”, take a second to think what the ramifications are of not doing it *EVER*:
 1. Is this piece of code critical to our business operation?
 2. How complicated is this? What is the likelihood of regressions?
 3. Will people understand how it functions?
 
-Don't fall victim to code review peer pressure "I need this in today". How often do things get rushed and we pay for them later?
+Don't fall victim to code review peer pressure “I need this in today”. How often do things get rushed and we pay for them later?
 People make mistakes, we shouldn't get into habit of holding people liable; but by circumventing standards that the team have all agreed on,
 and giving your stamp of approval, you have now become a part of this gap in testing standards.
 Imagine a factory setting where you have agreed to be lax on some safety standards for a small time, and it ends up with people getting injured, don't you think you would also be held somewhat liable?
@@ -76,3 +73,6 @@ But there are a few follow up steps we can take to ensure we're safe:
 - Creating a follow-up JIRA that lists each and every test that was not done, where it should go, linking back to the original task/PR. Always remember you might not be the person to do it (remember the scenario list above), so
 be as clear and concise as you can possibly be so the person understands the testing needed.
 - Someone needs to monitor the progress on this. Whether that person is you, the person that approved it, their team, there needs to be people's eyes on it to ensure it gets handled in good time.
+
+You know the saying “The best time to plant a tree was 20 years ago. The second best time is now.”. The same can be said about tests, except no one scratches their
+head wondering how the hell the tree was supposed to be planted.  The right time to write tests is right now.
