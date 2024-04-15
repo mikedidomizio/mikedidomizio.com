@@ -18,25 +18,27 @@ The truth is there are many scenarios that can happen between now and that time:
 - Forget to do them
 - Get sick
 - Injury
-- A loved one die / bereavement period
+- A loved one die / bereavement
 - Change teams
 - Team dissolves
 - Change companies
 - Die
 
-We can try and squeeze something into the next sprint planning, roadmaps, backlog/tech debt items, but the truth is life in unpredictable and can throw us curveballs.
-Understand that the opportunity to right things may never come.
+We can try and squeeze missed tests into the next sprint, or handle it as a tech debt items, but the truth is life in unpredictable and can throw us curveballs.
+We have to acknowledge that the opportunity to right things may never come.
 
 It happens more than you think.
 
-Whenever I'm hit with “I'll do it later”, it irks me a bit; because I've seen many occurrences where doing it later never ends up happening.
-By postponing tests, you leave things vulnerable.
+Whenever I'm hit with a “I'll do it later”, it irks me a bit; because I've seen many occurrences where doing it later never ends up happening.
+When it comes to testing, by postponing them, we leave ourselves vulnerable.
+
+## Writing them now
 
 We know why it's important to write tests, but why is it important to write them **right now**:
 
 1. Code quality assurance
     - I can sleep confidently knowing that to the best of my abilities I've left my code in the current state well tested.
-    - I don't have to worry about another person coming in and breaking things between now and then. What if a code change on top of yours introduces a regression and it all makes it into production, “why didn't you add tests”?
+    - I don't have to worry about another person coming in and breaking things between now and then. What if a code change on top of ours introduces a regression and it all makes it into production, “why didn't you add tests”?
     - I can avoid something being sent back because a tester or a stakeholder saying it doesn't work as expected. Sometimes things work while we're working away and by the time it gets to pull request it's busted, it happens.
 
 2. Self-documenting - Tests help document the behaviour and expectations on how the application is supposed to work, to me, they are the real source of truth.
@@ -50,29 +52,33 @@ What do I mean when I say that tests are the source of truth?:
 
 Source control systems can change, JIRA can be substituted for a different tool. Tests live permanently with the code base, no matter what they will be there forever and
 will only go away when they are no longer needed, or get updated when functionality changes.
-If you think the chances of anything like that happening to you are unlikely, I'm sure there are plenty of people/teams that also thought the same thing.
+If you think the chances of anything like that happening to you are unlikely, I'm sure there were plenty of people/teams that also thought the same thing.
 
 3. Team confidence - As a code reviewer I have reassurance the author has done their due diligence with fixing this bug, or adding this feature. Besides, it makes it easier to review (and faster to merge).
 4. Team morale - It can be very frustrating to work on a code base that has shaky legs. Do you want to work on a code base with gaps in testing? Do you enjoy playing the game of whack-a-mole with bugs?
 5. Maintenance, tech debt - As a code base evolves and becomes more complex, how can anyone confidently refactor without proper testing?
 
+## Don't fall for the trap
+
 Next time you hear someone say “I'll add it in the next pull request”, take a second to think what the ramifications are of not doing it *EVER*:
 1. Is this piece of code critical to our business operation?
 2. How complicated is this? What is the likelihood of regressions?
-3. Will people understand how it functions?
+3. Will people understand how it functions later?
 
-Don't fall victim to code review peer pressure “I need this in today”. How often do things get rushed and we pay for them later?
-People make mistakes, we shouldn't get into habit of holding people liable; but by circumventing standards that the team have all agreed on,
-and giving your stamp of approval, you have now become a part of this gap in testing standards.
-Imagine a factory setting where you have agreed to be lax on some safety standards for a small time, and it ends up with people getting injured, don't you think you would also be held somewhat liable?
-I know it's an extreme comparison, and maybe no one is dying because the HTML button is not clickable, but take two seconds to ask yourself what could the cost be if a regression occurs.
+Don't become a victim to code review peer pressure “I need this in today”. How often do things get rushed is and we pay for them later?
+People make mistakes, by circumventing standards that the team have all agreed on,
+and giving your stamp of approval, you have now become a part of this gap in testing.
+Imagine a factory setting where you have agreed to be lax on some safety standards for just a few minutes, and it ends up with people getting injured, don't you think you would also be held somewhat liable?
+I know it's an extreme comparison, and maybe no one is dying because the HTML button is not clickable, but take two seconds to ask yourself what could the cost be if a regression occurs?
 
-Now, am I saying you should never approve something that sidesteps testing standards?  No, there are scenarios where maybe you do need something quick, like a hotfix in production.
+You know the saying “The best time to plant a tree was 20 years ago. The second best time is now.”. The same can be said about tests, except no one scratches their
+head wondering how the hell the tree was supposed to be planted.  Therefore, the correct time to write tests is right now.
 
 But there are a few follow up steps we can take to ensure we're safe:
 - Creating a follow-up JIRA that lists each and every test that was not done, where it should go, linking back to the original task/PR. Always remember you might not be the person to do it (remember the scenario list above), so
-be as clear and concise as you can possibly be so the person understands the testing needed.
-- Someone needs to monitor the progress on this. Whether that person is you, the person that approved it, their team, there needs to be people's eyes on it to ensure it gets handled in good time.
+be as clear and concise as we can possibly be so the person understands the testing needed.
+- Monitor the progress. Whether that person is the person that approved it, the team, there needs to be reassurance that it is followed through with.
 
-You know the saying “The best time to plant a tree was 20 years ago. The second best time is now.”. The same can be said about tests, except no one scratches their
-head wondering how the hell the tree was supposed to be planted.  The right time to write tests is right now.
+## Conclusion
+
+Try and add tests for your changes within the pull request. Not only is it easier, but it's better for the team, and it's the right thing to do.
