@@ -7,8 +7,7 @@ draft: false
 
 Have you ever asked someone to add tests, and they responded with “I'll add tests later” or “I'll add tests in the next pull request”?
 
-But will it get done right away? Will all the necessary test cases be remembered? Will they remember
-to let me know when they do add them?
+But will it get done right away? Will all the necessary test cases be remembered? Will they be kind to ping you when they have added them?
 
 The truth is many scenarios can happen between now and that time:
 
@@ -24,27 +23,27 @@ The truth is many scenarios can happen between now and that time:
 - Change companies
 - Die
 
-We can try to squeeze missed tests into the next sprint or handle them as tech debt items, but the truth is that life is unpredictable and can throw us curveballs.
+We can try to squeeze missed tests into a PR shortly after, the next sprint or handle them as tech debt items, but the truth is that life is unpredictable and can throw us curveballs.
 We have to acknowledge that the opportunity to right things may never come.
 
 It happens more than you think.
 
 Whenever I'm hit with a “I'll do it later”, it irks me a bit because I've seen many occurrences where doing it later never ends up happening.
-When it comes to testing, we leave ourselves vulnerable by postponing them.
+When it comes to testing, we leave ourselves vulnerable if we decide to postpone them.
 
-## Writing them now
+## Write them now
 
 We know why it's important to write tests, but why is it important to write them **right now**:
 
 1. Code quality assurance
  - I can sleep confidently knowing that to the best of my abilities I've left my code in the current state well tested.
  - I don't have to worry about another person coming in and breaking things between now and when tests will be added. What if a code change on top of ours introduces a regression, and it all makes it into production?
- - I can avoid something being sent back because a tester or a stakeholder says it doesn't work as expected. Sometimes, things work while we're working away, and by the time it gets to pull request or to QA, it's broken; it happens.
+ - I can avoid something being sent back because a tester or a stakeholder says it doesn't work as expected. Sometimes, things work while we're working away, and by the time it gets to QA or customers, it's broken; it happens.
 
-2. Self-documenting—Tests help document the behaviour and expectations of how the application is supposed to work. What better time to document this than right now?
-Depending on how long those tests have been missing, we put the next person in a vulnerable spot if tests aren't added now. How are they expected to know about a certain code's functionality?
+2. Self-documenting—Tests help document the behaviour and expectations of how the application is supposed to work. What better time to document than right now?
+Depending on how long those tests are missing, we put the next person in a vulnerable spot if tests aren't added now. How are they expected to know about a certain code's functionality?
  - How helpful is `git blame` for something that has changed many times, moved files, and had many updates? What will this exactly help with?
-Are you going to dig through four years of tracked issues to determine what the expectations were at that time? What if the issues were poorly documented? What if those expectations changed since the initial tracked issue? What if some changes weren't tracked? What if those people who know no more are no longer around?
+ - Are you going to dig through many years of tracked issues to determine what the expectations were at that time? What if the issues were poorly documented? What if those expectations changed since the initial tracked issue? What if some changes weren't tracked? What if those people who know no more are no longer around?
 
 What do I mean when I say that tests are the source of truth?:
 
@@ -55,8 +54,8 @@ will only go away when they are no longer needed or get updated when functionali
 If you think the chances of anything like that happening to you are unlikely, I'm sure plenty of people/teams before you thought the same thing.
 
 3. Team confidence - As a code reviewer, I have the reassurance the author has done their due diligence in fixing this bug or adding this feature within the PR.
-4. Team morale—It can be worrying to work on a code base that has shaky legs or one you can visually witness slowly falling in quality. Do you want to work on a code base with gaps in testing? Do you enjoy playing whack-a-mole with bugs?
-5. Maintenance, tech debt - As a code base evolves and becomes more complex, how can anyone confidently refactor without proper testing?
+4. Team morale—It can be worrying to work on a code base that has shaky legs, or one you can visually witness slowly becoming more brittle due to testing coverage/quality suffering. Do you want to work on a code base with large gaps in testing? Do you enjoy playing whack-a-mole with bugs?
+5. Maintenance, tech debt - As a code base evolves and becomes more complex, testing keeps us in line. How can anyone confidently refactor without proper testing? Refactoring code that's existed without tests for years can result in a high chance of introducing bugs.
 
 ## Don't fall for the trap
 
@@ -65,7 +64,7 @@ Next time you hear someone say, “I'll add it in the next pull request”, take
 2. How complicated is this to understand? What is the likelihood of regressions? Could we refactor this safely?
 3. Will people understand how it functions later?
 
-Don't become a victim to code review peer pressure “I need this in today”. How often do things get rushed is and we pay for them later?
+Don't become a victim to code review peer pressure “I need this in today”. Rushing things in is usually a recipe for disaster.
 People do make mistakes. By circumventing standards that the team has all agreed upon,
 and giving your stamp of approval, you have now become an accomplice of this gap in testing.
 
