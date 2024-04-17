@@ -45,13 +45,15 @@ Depending on how long those tests are missing, we put the next person in a vulne
  - How helpful is `git blame` for something that has changed many times, moved files, and had many updates? What will this exactly help with?
  - Are you going to dig through many years of tracked issues to determine what the expectations were at that time? What if the issues were poorly documented? What if those expectations changed since the initial tracked issue? What if some changes weren't tracked? What if those people who know no more are no longer around?
 
-What do I mean when I say that tests are the source of truth?:
-
-> When I do this, I expect this to happen
+What do I mean when I say that tests are the source of truth?
 
 Source control systems can change, and issue trackers can be substituted for a different tool.
 Tests live permanently with the code base; no matter what, we can expect them to live with the code forever.
-I will know how the code was expected to function, _if I have the tests_. Tests
+So when I have this:
+
+> When I do this, I expect this to happen
+
+in my tests, I know how the code is expected to function. Tests
 will only go away when they are no longer needed or will get updated when functionality changes.
 
 If you believe that your source control, or issue tracker changing is unlikely to happen, I'm sure plenty of people before you thought the same thing.
