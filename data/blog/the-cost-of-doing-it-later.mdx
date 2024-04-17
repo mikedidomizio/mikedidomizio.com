@@ -49,13 +49,16 @@ What do I mean when I say that tests are the source of truth?:
 
 > When I do this, I expect this to happen
 
-Source control systems can change, and issue trackers can be substituted for a different tool. Tests live permanently with the code base; no matter what, they will be there forever, and
-will only go away when they are no longer needed or get updated when functionality changes.
-If you think the chances of anything like that happening to you are unlikely, I'm sure plenty of people/teams before you thought the same thing.
+Source control systems can change, and issue trackers can be substituted for a different tool.
+Tests live permanently with the code base; no matter what, we can expect them to live with the code forever.
+I will know how the code was expected to function, _if I have the tests_. Tests
+will only go away when they are no longer needed or will get updated when functionality changes.
 
-3. Team confidence - As a code reviewer, I have the reassurance the author has done their due diligence in fixing this bug or adding this feature within the PR.
-4. Team morale—It can be worrying to work on a code base that has shaky legs, or one you can visually witness slowly becoming more brittle due to testing coverage/quality suffering. Do you want to work on a code base with large gaps in testing? Do you enjoy playing whack-a-mole with bugs?
-5. Maintenance, tech debt - As a code base evolves and becomes more complex, testing keeps us in line. How can anyone confidently refactor without proper testing? Refactoring code that's existed without tests for years can result in a high chance of introducing bugs.
+If you believe that your source control, or issue tracker changing is unlikely to happen, I'm sure plenty of people before you thought the same thing.
+
+3. Team confidence - As a code reviewer, I have the reassurance the author has done their due diligence in fixing this bug or adding this feature within the PR if it has provided adequate testing.
+4. Team morale - It can be worrying to work on a code base that has shaky legs, or one you can visually witness slowly becoming more brittle due to testing coverage/quality suffering. Do you want to work on a code base with large gaps in testing? Do you enjoy playing whack-a-mole with bugs?
+5. Maintenance - As a code base evolves and becomes more complex, testing keeps us in line. How can anyone confidently refactor without proper testing? Refactoring code that's existed without tests for years can result in a high chance of introducing bugs.
 
 ## Don't fall for the trap
 
@@ -72,12 +75,12 @@ Imagine a factory setting where you have agreed to help someone lower some safet
 Do you not take on some liability? I know it's an extreme comparison, and maybe no one is dying because the HTML button is not clickable, but take two seconds to ask yourself what the cost would be if a regression occurred with this.
 
 There may be scenarios where you have to break the rule. For example, production has an issue, and we're losing millions by the minute,
-That might be a time where you as a team have agreed to hotfix something without adding a test.
+That might be a time where as a team you have agreed to hotfix something without adding a test.
 
 So what can we do as follow-up in those scenarios:
 
-- Creating a follow-up issue that lists every test that wasn't done and where it should go, linking back to the original task/PR. Always remember you might not be the person to do it (remember the scenario list above), so be as clear and concise as possible so the person understands the testing that is needed.
-Monitor the progress. Whether that person is the person who approved it or the team, there needs to be reassurance that it is followed through with.
+- Creating a follow-up issue that lists every test that wasn't done and where it should go, linking back to the original task/PR. Always remember you might not be the person to do it (remember the scenario list above), so be as clear and concise as possible so that any person understands the testing that is needed.
+- Monitor the progress. Whether that person is the person who approved it or the team, there needs to be reassurance that it is followed through with.
 - Resolve it in a timely manner. Just because the task exists doesn't mean it's fine to sit at the bottom of the backlog for a year. Let your manager know
 the importance of getting it resolved and the potential issues if it isn't.
 
