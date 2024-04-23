@@ -1,6 +1,6 @@
 ---
 title: The Cost of “Doing it Later”
-date: '2024-04-22'
+date: '2024-04-24'
 tags: ['testing']
 draft: false
 ---
@@ -50,11 +50,11 @@ When tests are missing for a considerable amount of time:
 
 Source control systems can change, and issue trackers can be substituted for a different tool.
 Tests live permanently with the code base; no matter what, we can expect them to live with the code forever.
-So when I have this:
+So when I have this in my tests:
 
 > When I do this, I expect this to happen
 
-in my tests, I know how the code is expected to function today. Tests
+I know how the code is expected to function today. Tests
 will only go away when they are no longer needed or will get updated when functionality changes.
 
 If you believe that your source control, or issue tracker changing is unlikely to happen, I'm sure plenty of people before you thought the same thing.
@@ -72,10 +72,13 @@ Next time you hear someone say, “I'll add it in the next pull request”, take
 
 Don't become a victim to code review peer pressure. Rushing things in is usually a recipe for disaster.
 People do make mistakes. By circumventing standards that the team has all agreed upon,
-and giving your stamp of approval, you have now become an accomplice of this gap in testing.
+and giving your stamp of approval, you have now become an accomplice in this gap in testing.
 
-Imagine a factory setting where you have agreed to help someone lower some safety standards just for a few minutes, and people get injured as a result.
-Do you not take on some liability? I know it's an extreme comparison, and maybe no one is dying because the HTML button is not clickable, but it take two seconds to ask yourself what the cost is if we don't add tests.
+Imagine a factory setting where you have agreed to help someone lower safety standards just for a few minutes, and people get injured as a result.
+I know it's an extreme comparison, and maybe no one is dying because the HTML button is not clickable, but it take two seconds to ask yourself what the potential cost is if we don't add tests.
+
+I'm also not saying people should be held responsible when bugs arise due to a lack of testing, but we all take some responsibility
+in ensuring that we collectively do things correctly for the greater good of the project/team/organization and try not to cut corners.
 
 There may be scenarios where you have to break the rule. For example, production has an issue, and we're losing millions by the minute.
 That might be a time where as a team you have agreed to hotfix something without adding a test.
@@ -91,3 +94,5 @@ the importance of getting it resolved and the potential issues if it isn't.
 ## Conclusion
 
 Try to add tests for your changes within the pull request. Not only is it easier, but it's better for the team, and it's the right thing to do.
+
+If you need to postpone adding them, consider a follow-up plan of attack to ensure they're properly handled.
