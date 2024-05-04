@@ -9,7 +9,7 @@ const siteMetadata = {
   siteUrl: 'https://mikedidomizio.com',
   siteRepo: 'https://github.com/mikedidomizio/mikedidomizio.com',
   siteLogo: null,
-  socialBanner: '/static/images/twitter-card.png',
+  socialBanner: '/static/images/twitter-card.png', // todo this can't be null in the current state but perhaps we can update the other place where it's required or supply a fallback
   mastodon: null,
   email: 'mikedidomizio@gmail.com',
   github: 'https://github.com/mikedidomizio',
