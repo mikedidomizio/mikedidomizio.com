@@ -16,7 +16,7 @@ const siteMetadata = {
   twitter: 'https://twitter.com/Mike_DiDomizio',
   facebook: null,
   youtube: null,
-  linkedin: null,
+  linkedin: 'https://www.linkedin.com/in/mikedidomizio',
   locale: 'en-US',
   analytics: {
     // If you want to use an analytics provider you have to add it to the
