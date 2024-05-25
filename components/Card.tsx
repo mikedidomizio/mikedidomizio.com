@@ -1,6 +1,6 @@
 import Image from '@/components/Image'
 import Link from './Link'
-import {PropsWithChildren, ReactNode} from 'react'
+import { PropsWithChildren, ReactNode } from 'react'
 
 const CardContainer = ({ children }: PropsWithChildren) => {
   return <div className="md max-w-[544px] p-4 md:w-1/2">{children}</div>
