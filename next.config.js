@@ -15,7 +15,8 @@ const ContentSecurityPolicy = `
   media-src *.s3.amazonaws.com;
   connect-src *;
   font-src 'self';
-  frame-src *.youtube.com;
+  object-src https://drive.google.com/viewerng/viewer?embedded=true&url=https://mikedidomizio.com/static/semantic-versioning/SemanticVersioning.pdf;
+  frame-src *.youtube.com https://drive.google.com/viewerng/viewer?embedded=true&url=https://mikedidomizio.com/static/semantic-versioning/SemanticVersioning.pdf;
 `
 
 const securityHeaders = [
