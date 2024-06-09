@@ -7,24 +7,12 @@ export default async function Page() {
   const posts = allCoreContent(sortedPosts)
   return (
     <>
-      <object
-        data="/static/semantic-versioning/SemanticVersioning.pdf"
-        type="application/pdf"
-        width="100%"
-        height="100%"
-      >
-        Could not load PDF - Here is a{' '}
-        <a href="/static/semantic-versioning/SemanticVersioning.pdf">link to the PDF!</a>
-      </object>
-
+      embed drive
       <embed
-        src="/static/semantic-versioning/SemanticVersioning.pdf"
+        src="https://drive.google.com/viewerng/viewer?embedded=true&url=http://example.com/the.pdf"
         width="500"
         height="375"
-        type="application/pdf"
       />
-
-      <iframe src="/static/semantic-versioning/SemanticVersioning.pdf"></iframe>
     </>
   )
 }
