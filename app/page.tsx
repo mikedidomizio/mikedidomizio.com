@@ -10,14 +10,8 @@ export default async function Page() {
       embed drive
       <embed
         src="https://drive.google.com/viewerng/viewer?embedded=true&url=https://mikedidomizio-com-dev-mode.vercel.app/static/semantic-versioning/SemanticVersioning.pdf"
-        width="500"
-        height="375"
-      />
-      embed no-drive
-      <embed
-        src="https://mikedidomizio-com-dev-mode.vercel.app/static/semantic-versioning/SemanticVersioning.pdf"
-        width="500"
-        height="375"
+        width="100%"
+        height={400}
       />
     </>
   )
