@@ -15,7 +15,8 @@ const ContentSecurityPolicy = `
   media-src *.s3.amazonaws.com;
   connect-src *;
   font-src 'self';
-  frame-src 'self' *.youtube.com;
+  object-src *;
+  frame-src *;
 `
 
 const securityHeaders = [
