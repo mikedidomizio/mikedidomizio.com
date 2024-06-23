@@ -1,5 +1,6 @@
 import Card from '@/components/Card'
 import { genPageMetadata } from 'app/seo'
+import Link from '@/components/Link'
 
 const booksRead = [
   {
@@ -34,7 +35,7 @@ export default function Reading() {
             Reading
           </h1>
           <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
-            Books I've read and my thoughts on them
+            Books I've read and recommend
           </p>
         </div>
         <div className="container py-12">
@@ -52,7 +53,15 @@ export default function Reading() {
                       // description={d.myThoughts}
                       imgSrc={d.imgSrc}
                       href={d.href}
-                    />
+                    >
+                      <Link
+                        href={d.href}
+                        className="text-base font-medium leading-6 text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+                        aria-label={`Link to site for ${d.title}`}
+                      >
+                        Learn more about this book
+                      </Link>
+                    </Card>
                   ))}
                 </div>
               </div>
