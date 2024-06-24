@@ -24,7 +24,7 @@ const CardDescription = ({ children }) => {
   return <p className="prose mb-3 max-w-none text-gray-500 dark:text-gray-400">{children}</p>
 }
 
-const LearnMore = ({ href, title }: { href?: string; title: string }) => {
+export const LearnMore = ({ href, title }: { href?: string; title: string }) => {
   return href ? (
     <Link
       href={href}
@@ -62,11 +62,13 @@ const CardImage = ({ imgSrc, href, title }: { imgSrc?: string; href?: string; ti
 }
 
 const Card = ({
+  children,
   title,
   description,
   imgSrc,
   href,
 }: {
+  children: ReactNode
   title: string
   description?: ReactNode
   imgSrc?: string
@@ -82,7 +84,7 @@ const Card = ({
       <div className="p-6">
         <CardTitle href={href} title={title} />
         {description ? <CardDescription>{description}</CardDescription> : null}
-        <LearnMore href={href} title={title} />
+        {children}
       </div>
     </div>
   </CardContainer>
