@@ -2,23 +2,27 @@ import Card from '@/components/Card'
 import { genPageMetadata } from 'app/seo'
 import Link from '@/components/Link'
 
+// in order of date read with newest first
 const booksRead = [
   {
     categoryName: 'Career',
     books: [
       {
-        title: 'Staff Engineer: Leadership Beyond the Management Track',
-        // myThoughts: 'I thought this was a good book',
-        author: 'Will Larson',
-        href: 'https://staffeng.com/book',
-        imgSrc: '/static/books/staff-engineer-leadership-beyond-book-will-larson.jpg',
-      },
-      {
         title: "The Staff Engineer's Path",
-        // myThoughts: 'I thought this was a good book',
+        myThoughts: `I think I preferred this over "Staff Engineer", but I recommend reading both. It really solidified my understanding
+        of what a Staff Engineer is, how they should work, and manage their time.`,
         author: 'Tanya Reilly',
         href: 'https://www.oreilly.com/library/view/the-staff-engineers/9781098118723/',
         imgSrc: '/static/books/staff-engineers-path-book-tanya-reilly.jpeg',
+      },
+      {
+        title: 'Staff Engineer: Leadership Beyond the Management Track',
+        myThoughts: `I thought this was a great book and I\'d recommend this for anyone looking to become a Staff
+        Engineer or is already one. I recommend reading this alongside "The Staff Engineer's Path". Before becoming a Staff 
+        myself, It really helped confirmed some practices I had already put in place.`,
+        author: 'Will Larson',
+        href: 'https://staffeng.com/book',
+        imgSrc: '/static/books/staff-engineer-leadership-beyond-book-will-larson.jpg',
       },
     ],
   },
@@ -50,7 +54,7 @@ export default function Reading() {
                     <Card
                       key={d.title}
                       title={d.title}
-                      // description={d.myThoughts}
+                      description={d.myThoughts}
                       imgSrc={d.imgSrc}
                       href={d.href}
                     >
