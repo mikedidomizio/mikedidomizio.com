@@ -34,7 +34,7 @@ const booksRead = [
         title: 'Staff Engineer: Leadership Beyond the Management Track',
         myThoughts: `I thought this was a great book and I'd recommend this for anyone looking to become a Staff
         Engineer or is already one. I recommend reading this alongside "The Staff Engineer's Path". Before becoming a Staff 
-        myself, It really helped confirmed some practices I had already put in place.`,
+        myself, it really helped confirm some practices I had already put in place.`,
         author: 'Will Larson',
         href: 'https://staffeng.com/book',
         imgSrc: '/static/books/staff-engineer-leadership-beyond-book-will-larson.jpg',
