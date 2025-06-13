@@ -1,0 +1,147 @@
+---
+title: Why we decided to change how the `details` element works
+summary: 'We thought we had a bug in our theScore Bet website, but it turns out that it was just a misunderstanding of how the HTML element &lt;details&gt; works. Let&apos;s dive into what we discovered.'
+date: '2024-10-09'
+tags: ['html', 'react', 'accessibility']
+draft: false
+canonical: https://techblog.thescore.com/2024/10/08/why-we-decided-to-change-how-the-details-element-works/
+---
+
+Originally posted at [techblog.thescore.com](https://techblog.thescore.com/2024/10/08/why-we-decided-to-change-how-the-details-element-works/)
+
+Our Analytics team noticed an abnormally high volume of "accordion" toggle events on theScore Bet website.
+The site is built with React, and the component at the root of the issue was built on top of the native
+[&lt;details&gt;](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details) and [&lt;summary&gt;](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/summary) HTML elements for better accessibility.
+After investigating, we found that the issue stemmed from a misunderstanding of how the `<details>` element behaves.
+
+Let's start by looking at how the `<details>` and `<summary>` elements are used.
+
+```html
+<details>
+    <summary>I will show/hide information</summary>
+    I'm displayed when expanded
+</detail>
+```
+
+and it functions like this:
+![HTML details element expanding and collapsing](/assets/html-details-element.gif)
+
+The `<details>` element can be used to provide additional information, when clicking the `<summary>` element, it expands to show the additional
+information to the user.
+
+Many libraries provide something similar to this already.
+We wanted to build something with pure HTML elements that take accessibility into consideration, and to our Design Systems look and feel.
+
+The `details` element has a few possible attributes:
+
+- `open` which controls the state of whether the accordion is open or not
+- `ontoggle` which fires when the user changes the state of the accordion
+
+But there's one catch, and that is if `open` is present, and I say present because `open="false"` is actually true (in HTML, not React),
+then the `ontoggle` event will fire on render.
+
+Yes, you read that correct.  _When the `open` attribute is present, the `ontoggle` event fires automatically on render_.
+
+The MDN docs for the [&lt;details&gt;](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/details) element doesn't mention this behaviour, but it's
+briefly touched on in the [toggle event](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDetailsElement/toggle_event) page:
+
+> Note: In the example above the event listener will be called once without any user interaction because the open attribute is set.
+
+This is really easy to miss.
+
+This was where the bug occurred. In React, it's fairly common to attach synthetic events onto JSX elements, like `onChange`, `onClick`, and `onSubmit`, which closely mirror how inline events are attached to HTML elements.
+
+The difference is, none of those events are triggered on mounting of a component.  Generally reserved to something the
+user has invoked.
+
+The React code of using `<details>` looks similar
+
+```html
+<details open={true} onToggle={handleToggle}>
+    <summary>I will show/hide information</summary>
+    I'm displayed when expanded
+</detail>
+```
+
+It would be understandable for a developer to believe that `ontoggle` (`onToggle` in React) would only happen if a
+toggle has been triggered, and not fired just because something has simply rendered.
+
+I approached our team, gave them different scenarios and quizzed them how they thought it worked. In the end, I asked
+if they think we should make it work differently, and they did. My goal even if it goes against the WHATWG standard,
+is to reduce the likelihood of introducing bugs, the implementation is not very intuitive.
+
+For the bug, it was a simple analytics event, but it could have been much worse.
+
+## How we solved it for us:
+
+\#1. To resolve this, we created a custom `<Details>` component in React, acting as a layer to prevent the `onToggle` event from firing on mount. Here's how we implemented it:
+
+```jsx
+import {
+	DetailsHTMLAttributes,
+	DetailedHTMLProps,
+	useEffect,
+	useRef,
+	SyntheticEvent,
+} from 'react'
+
+type DetailsProps = DetailedHTMLProps<
+	DetailsHTMLAttributes<HTMLDetailsElement>,
+HTMLDetailsElement
+>
+
+/**
+ * The purpose of this component is to alter the way the `<details>` element works,
+ * which is to not trigger `onToggle` event on mount when the `open` attribute is set to `true`.
+ */
+export const Details = ({ children, ...props }: DetailsProps) => {
+	const hasMounted = useRef(false)
+
+	useEffect(() => {
+		hasMounted.current = true
+	}, [])
+
+	const handleToggle = (event: SyntheticEvent<HTMLDetailsElement, Event>) => {
+		if (hasMounted.current && props.onToggle) {
+			props.onToggle(event)
+		}
+	}
+
+	return (
+		<details {...props} onToggle={handleToggle}>
+			{children}
+		</details>
+	)
+}
+```
+
+
+\#2. To ensure consistent use of this solution across the team, we introduced an ESLint rule that prevents the use of
+the native `<details>` HTML element, guiding developers toward our new `<Details>` component:
+
+```js
+{
+	'react/forbid-elements': ['error', { 'forbid': [{ 'element': 'details', 'message': 'Use <Details> component instead to avoid `onToggle` firing on mounting'} ] }],
+}
+```
+
+I'm currently discussing with the [WHATWG](https://matrix.to/#/!AGetWbsMpFPdSgUrbs:matrix.org/$HvfNxRdOklFM8QEsrcCv1aBRkvzCiU10m2jBNfMV_4g?via=matrix.org&via=mozilla.org&via=igalia.com) the
+behaviour of the current implementation ([2](https://matrix.to/#/!AGetWbsMpFPdSgUrbs:matrix.org/$0sbwPEwfP2T0yUTr1I6L-YWdJJn5yy8BMW2fUfx7Qs0?via=matrix.org&via=mozilla.org&via=igalia.com)).
+
+I've raised an [issue with Next.js](https://github.com/vercel/next.js/issues/69881) as I found that Next.js behaved differently than React.
+
+For our project we were using [happy-dom](https://github.com/capricorn86/happy-dom) which we encountered an issue when testing.
+I submitted a [pull request](https://github.com/capricorn86/happy-dom/pull/1536) to resolve it.
+
+We decided to change to [jsdom](https://github.com/jsdom/jsdom) for consistency across projects, and that had its own problems.
+We encountered an issue when [writing tests](https://codesandbox.io/p/devbox/musing-tereshkova-r97knn?file=%2Fsrc%2F__tests__%2FApp.test.tsx%3A15%2C6)
+and verifying if the `onToggle` had been fired or not.
+
+This was quite the rabbit hole.
+
+## Closing words
+
+Just because someone says "that's the way it is" doesn't mean it has to be that way.
+In the end, we modified how the `<details>` HTML element works because the implementation was not very intuitive,
+which resulted in bugs.
+It's important to implement solutions that make sense, ensuring it behaves in a way most people would expect.

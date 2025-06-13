@@ -80,6 +80,11 @@ export const Blog = defineDocumentType(() => ({
   filePathPattern: 'blog/**/*.mdx',
   contentType: 'mdx',
   fields: {
+    canonical: {
+      type: 'string',
+      description: 'The canonical URL for SEO',
+      optional: true,
+    },
     title: { type: 'string', required: true },
     date: { type: 'date', required: true },
     tags: { type: 'list', of: { type: 'string' }, default: [] },
