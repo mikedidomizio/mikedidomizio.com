@@ -50,6 +50,14 @@ export async function generateMetadata({
     }
   })
 
+  let alternates = {}
+
+  if (post.canonical) {
+    alternates = {
+      canonical: post.canonical,
+    }
+  }
+
   return {
     title: post.title,
     description: post.summary,
@@ -71,6 +79,7 @@ export async function generateMetadata({
       description: post.summary,
       images: imageList,
     },
+    alternates,
   }
 }
 
