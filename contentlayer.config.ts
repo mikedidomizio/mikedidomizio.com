@@ -5,6 +5,7 @@ import GithubSlugger from 'github-slugger'
 import path from 'path'
 // Remark packages
 import remarkGfm from 'remark-gfm'
+import remarkMath from 'remark-math'
 import {
   remarkExtractFrontmatter,
   remarkCodeTitles,
