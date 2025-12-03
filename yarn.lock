@@ -3657,13 +3657,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/mathjax@npm:^0.0.40":
-  version: 0.0.40
-  resolution: "@types/mathjax@npm:0.0.40"
-  checksum: 51429d11964e3d21cac27ffd1294627551768133844933fb47b301d7a02ed9db8d169b5f49c41a91235b4be602cd611db71a4704efe9ddb675e54a1ea2681fa0
-  languageName: node
-  linkType: hard
-
 "@types/mdast@npm:^3.0.0":
   version: 3.0.15
   resolution: "@types/mdast@npm:3.0.15"
@@ -3898,13 +3891,6 @@ __metadata:
   version: 1.2.0
   resolution: "@ungap/structured-clone@npm:1.2.0"
   checksum: 4f656b7b4672f2ce6e272f2427d8b0824ed11546a601d8d5412b9d7704e83db38a8d9f402ecdf2b9063fc164af842ad0ec4a55819f621ed7e7ea4d1efcc74524
-  languageName: node
-  linkType: hard
-
-"@xmldom/xmldom@npm:0.9.8":
-  version: 0.9.8
-  resolution: "@xmldom/xmldom@npm:0.9.8"
-  checksum: f8d16ad3c8083312575850fa4f2c13a2b884a37021dbb0146c6b2575bd3ddbf4c900530b49a55a7f62088ecf9809173fd7138985e7e58ddab786578970e09c59
   languageName: node
   linkType: hard
 
@@ -4769,13 +4755,6 @@ __metadata:
   version: 11.0.0
   resolution: "commander@npm:11.0.0"
   checksum: 6621954e1e1d078b4991c1f5bbd9439ad37aa7768d6ab4842de1dbd4d222c8a27e1b8e62108b3a92988614af45031d5bb2a2aaa92951f4d0c934d1a1ac564bb4
-  languageName: node
-  linkType: hard
-
-"commander@npm:13.1.0":
-  version: 13.1.0
-  resolution: "commander@npm:13.1.0"
-  checksum: 8ca2fcb33caf2aa06fba3722d7a9440921331d54019dabf906f3603313e7bf334b009b862257b44083ff65d5a3ab19e83ad73af282bd5319f01dc228bdf87ef0
   languageName: node
   linkType: hard
 
@@ -6042,13 +6021,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esm@npm:^3.2.25":
-  version: 3.2.25
-  resolution: "esm@npm:3.2.25"
-  checksum: 978aabe2de83541c105605a6d60a26ed8e627ef6bb0a7605fe15a95bbdea6b8348bd045255cb22219c054dd09a81a94823df00843d9e97f42419c92015ce3a64
-  languageName: node
-  linkType: hard
-
 "espree@npm:^9.6.0, espree@npm:^9.6.1":
   version: 9.6.1
   resolution: "espree@npm:9.6.1"
@@ -6922,15 +6894,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hast-util-is-element@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "hast-util-is-element@npm:3.0.0"
-  dependencies:
-    "@types/hast": ^3.0.0
-  checksum: 82569a420eda5877c52fdbbdbe26675f012c02d70813dfd19acffdee328e42e4bd0b7ae34454cfcbcb932b2bedbd7ddc119f943a0cfb234120f9456d6c0c4331
-  languageName: node
-  linkType: hard
-
 "hast-util-is-event-handler@npm:^2.0.0":
   version: 2.0.0
   resolution: "hast-util-is-event-handler@npm:2.0.0"
@@ -6955,15 +6918,6 @@ __metadata:
   dependencies:
     "@types/hast": ^2.0.0
   checksum: 511d373465f60dd65e924f88bf0954085f4fb6e3a2b062a4b5ac43b93cbfd36a8dce6234b5d1e3e63499d936375687e83fc5da55628b22bd6b581b5ee167d1c4
-  languageName: node
-  linkType: hard
-
-"hast-util-parse-selector@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "hast-util-parse-selector@npm:4.0.0"
-  dependencies:
-    "@types/hast": ^3.0.0
-  checksum: 76087670d3b0b50b23a6cb70bca53a6176d6608307ccdbb3ed18b650b82e7c3513bfc40348f1389dc0c5ae872b9a768851f4335f44654abd7deafd6974c52402
   languageName: node
   linkType: hard
 
@@ -7077,18 +7031,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"hast-util-to-text@npm:^4.0.0":
-  version: 4.0.2
-  resolution: "hast-util-to-text@npm:4.0.2"
-  dependencies:
-    "@types/hast": ^3.0.0
-    "@types/unist": ^3.0.0
-    hast-util-is-element: ^3.0.0
-    unist-util-find-after: ^5.0.0
-  checksum: 72cce08666b86511595d3eef52236b86897cfbac166f2a0752b70b16d1f590b5aa91ea1a553c0d1603f9e0c7e373ceacab381be3d8f176129ad6e301d2a56d94
-  languageName: node
-  linkType: hard
-
 "hast-util-whitespace@npm:^2.0.0":
   version: 2.0.1
   resolution: "hast-util-whitespace@npm:2.0.1"
@@ -7115,19 +7057,6 @@ __metadata:
     property-information: ^6.0.0
     space-separated-tokens: ^2.0.0
   checksum: 928a21576ff7b9a8c945e7940bcbf2d27f770edb4279d4d04b33dc90753e26ca35c1172d626f54afebd377b2afa32331e399feb3eb0f7b91a399dca5927078ae
-  languageName: node
-  linkType: hard
-
-"hastscript@npm:^9.0.0":
-  version: 9.0.1
-  resolution: "hastscript@npm:9.0.1"
-  dependencies:
-    "@types/hast": ^3.0.0
-    comma-separated-tokens: ^2.0.0
-    hast-util-parse-selector: ^4.0.0
-    property-information: ^7.0.0
-    space-separated-tokens: ^2.0.0
-  checksum: 2bbb9a3c2dc43c9dec7f6599ef45e5eefb1c2a5f75d33d005dc432e92bf9d7cfb6c0d927f15a7592bb48601d2b582ea2e4b1131a716ac3f7b618a07d88f9a5d7
   languageName: node
   linkType: hard
 
@@ -8162,18 +8091,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mathjax-full@npm:^3.0.0":
-  version: 3.2.1
-  resolution: "mathjax-full@npm:3.2.1"
-  dependencies:
-    esm: ^3.2.25
-    mhchemparser: ^4.1.0
-    mj-context-menu: ^0.6.1
-    speech-rule-engine: ^4.0.6
-  checksum: 35d5ed7c4f3f84e05f3d4c609335b29e13d1ddfb9609043cc7ab888327e72454377b12ca1b8c758f58f9b8677ff7703f858f3e668a8ca327ba8caeed03e05cdb
-  languageName: node
-  linkType: hard
-
 "mdast-util-find-and-replace@npm:^3.0.0":
   version: 3.0.2
   resolution: "mdast-util-find-and-replace@npm:3.0.2"
@@ -8317,14 +8234,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mdast-util-math@npm:^2.0.0":
-  version: 2.0.2
-  resolution: "mdast-util-math@npm:2.0.2"
+"mdast-util-math@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "mdast-util-math@npm:3.0.0"
   dependencies:
-    "@types/mdast": ^3.0.0
+    "@types/hast": ^3.0.0
+    "@types/mdast": ^4.0.0
+    devlop: ^1.0.0
     longest-streak: ^3.0.0
-    mdast-util-to-markdown: ^1.3.0
-  checksum: 60b3c1ca8dd0f009504de17515249fa396818fd4d5f83ed2c9c4aa3523add080c9076b32299b9622a8b1eb6e249d65fd4a8c1f0ab231a7656396353c2898d0bd
+    mdast-util-from-markdown: ^2.0.0
+    mdast-util-to-markdown: ^2.1.0
+    unist-util-remove-position: ^5.0.0
+  checksum: dc7dfb14aec2ec143420f2d92f80c5e6d69293d7cfb6b8180e7f411ce4e1314b5cf4a8d3345eefe06ab0ddd95e3c7801c4174b343fd2c26741180ca4dbad5371
   languageName: node
   linkType: hard
 
@@ -8426,7 +8347,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mdast-util-to-markdown@npm:^1.0.0, mdast-util-to-markdown@npm:^1.3.0":
+"mdast-util-to-markdown@npm:^1.0.0":
   version: 1.5.0
   resolution: "mdast-util-to-markdown@npm:1.5.0"
   dependencies:
@@ -8442,7 +8363,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mdast-util-to-markdown@npm:^2.0.0":
+"mdast-util-to-markdown@npm:^2.0.0, mdast-util-to-markdown@npm:^2.1.0":
   version: 2.1.2
   resolution: "mdast-util-to-markdown@npm:2.1.2"
   dependencies:
@@ -8542,13 +8463,6 @@ __metadata:
   version: 1.1.2
   resolution: "methods@npm:1.1.2"
   checksum: 0917ff4041fa8e2f2fda5425a955fe16ca411591fbd123c0d722fcf02b73971ed6f764d85f0a6f547ce49ee0221ce2c19a5fa692157931cecb422984f1dcd13a
-  languageName: node
-  linkType: hard
-
-"mhchemparser@npm:^4.1.0":
-  version: 4.2.1
-  resolution: "mhchemparser@npm:4.2.1"
-  checksum: 6dd7e3926befc74d26cf7b44b9e5ff7295e142bffc48a60bd225d5a30d525354afb70d23fc4fdb8f46178099ab98a66a57a6131dcb0f410264cfd2b9ad4af4b7
   languageName: node
   linkType: hard
 
@@ -8705,18 +8619,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromark-extension-math@npm:^2.0.0":
-  version: 2.1.2
-  resolution: "micromark-extension-math@npm:2.1.2"
+"micromark-extension-math@npm:^3.0.0":
+  version: 3.1.0
+  resolution: "micromark-extension-math@npm:3.1.0"
   dependencies:
     "@types/katex": ^0.16.0
+    devlop: ^1.0.0
     katex: ^0.16.0
-    micromark-factory-space: ^1.0.0
-    micromark-util-character: ^1.0.0
-    micromark-util-symbol: ^1.0.0
-    micromark-util-types: ^1.0.0
-    uvu: ^0.5.0
-  checksum: cbfd1c1ab0e13579571f5af9982eed7c02630300fe3cf3f62b4457f6f3da007621b7d23bc53010f8e727267e6b4caa7bc1b923abd528209c4d8821d80fe4424d
+    micromark-factory-space: ^2.0.0
+    micromark-util-character: ^2.0.0
+    micromark-util-symbol: ^2.0.0
+    micromark-util-types: ^2.0.0
+  checksum: 60a9813d456a7bf1ca493b5b9a1f1df3828b5f635fdc72a3b36a0cf1ebded2a9ed12899493d80578a737d1e36e94113da09aed381f99d0103e82467f16989e28
   languageName: node
   linkType: hard
 
@@ -9425,13 +9339,6 @@ __metadata:
     minipass: ^3.0.0
     yallist: ^4.0.0
   checksum: f1fdeac0b07cf8f30fcf12f4b586795b97be856edea22b5e9072707be51fc95d41487faec3f265b42973a304fe3a64acd91a44a3826a963e37b37bafde0212c3
-  languageName: node
-  linkType: hard
-
-"mj-context-menu@npm:^0.6.1":
-  version: 0.6.1
-  resolution: "mj-context-menu@npm:0.6.1"
-  checksum: 7a036026538662cac9619b760fade98681618c3ddf417cb36eddb7c28a937baf257c56fd0b6318738419e738ba01a00bcb3790b324885fd6edbae03fb0a2c986
   languageName: node
   linkType: hard
 
@@ -10750,22 +10657,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rehype-mathjax@npm:^7.1.0":
-  version: 7.1.0
-  resolution: "rehype-mathjax@npm:7.1.0"
-  dependencies:
-    "@types/hast": ^3.0.0
-    "@types/mathjax": ^0.0.40
-    hast-util-to-text: ^4.0.0
-    hastscript: ^9.0.0
-    mathjax-full: ^3.0.0
-    unified: ^11.0.0
-    unist-util-visit-parents: ^6.0.0
-    vfile: ^6.0.0
-  checksum: 060b904c5572108b6391269ca2f1763a54d91709b5daffbd0dd15cb19b86fd0d9e1fd3a703b03e93d40549f9f9d01266a5cfb4d412566076e0ebcac4794886a4
-  languageName: node
-  linkType: hard
-
 "rehype-minify-attribute-whitespace@npm:^3.0.0":
   version: 3.0.0
   resolution: "rehype-minify-attribute-whitespace@npm:3.0.0"
@@ -11194,15 +11085,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"remark-math@npm:^5.1.1":
-  version: 5.1.1
-  resolution: "remark-math@npm:5.1.1"
+"remark-math@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "remark-math@npm:6.0.0"
   dependencies:
-    "@types/mdast": ^3.0.0
-    mdast-util-math: ^2.0.0
-    micromark-extension-math: ^2.0.0
-    unified: ^10.0.0
-  checksum: 1baec5862e36bbb8645144a73740e63a3aed2d547a64b731bb1a0162658319679378fd70f3d3d534655c2a0fcc3f941adba31cca33808e134fa22202a5d314f9
+    "@types/mdast": ^4.0.0
+    mdast-util-math: ^3.0.0
+    micromark-extension-math: ^3.0.0
+    unified: ^11.0.0
+  checksum: fef489acb6cae6e40af05012367dc22a846ce16301e8a96006c6d78935887bdb3e6c5018b6514884ecee57f9c7a51f97a10862526ab0a0f5f7b7d339fe0eb20f
   languageName: node
   linkType: hard
 
@@ -11707,19 +11598,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"speech-rule-engine@npm:^4.0.6":
-  version: 4.1.2
-  resolution: "speech-rule-engine@npm:4.1.2"
-  dependencies:
-    "@xmldom/xmldom": 0.9.8
-    commander: 13.1.0
-    wicked-good-xpath: 1.3.0
-  bin:
-    sre: bin/sre
-  checksum: 437e70f6f6a08b35d5339467427d6a74eecf6c1f4a74e551b2c18ad2315c1f6a89ecb801d02c49e92b30df709a3a8e08ad75ae1095c0224c2cd0fddf5f982de9
-  languageName: node
-  linkType: hard
-
 "sprintf-js@npm:^1.1.3":
   version: 1.1.3
   resolution: "sprintf-js@npm:1.1.3"
@@ -12093,13 +11971,12 @@ __metadata:
     rehype-autolink-headings: ^6.1.0
     rehype-citation: ^1.0.2
     rehype-katex: ^6.0.3
-    rehype-mathjax: ^7.1.0
     rehype-preset-minify: 6.0.0
     rehype-prism-plus: ^1.6.0
     rehype-slug: ^5.1.0
     remark: ^14.0.2
     remark-gfm: ^4.0.0
-    remark-math: ^5.1.1
+    remark-math: ^6.0.0
     tailwindcss: ^3.3.3
     typescript: ^5.1.3
     unist-util-visit: ^4.1.0
@@ -12557,16 +12434,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"unist-util-find-after@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "unist-util-find-after@npm:5.0.0"
-  dependencies:
-    "@types/unist": ^3.0.0
-    unist-util-is: ^6.0.0
-  checksum: e64bd5ebee7ac021cf990bf33e9ec29fc6452159187d4a7fa0f77334bea8e378fea7a7fb0bcf957300b2ffdba902ff25b62c165fc8b86309613da35ad793ada0
-  languageName: node
-  linkType: hard
-
 "unist-util-is@npm:^5.0.0":
   version: 5.2.1
   resolution: "unist-util-is@npm:5.2.1"
@@ -12610,6 +12477,16 @@ __metadata:
     "@types/unist": ^2.0.0
     unist-util-visit: ^4.0.0
   checksum: 989831da913d09a82a99ed9b47b78471b6409bde95942cde47e09da54b7736516f17e3c7e026af468684c1efcec5fb52df363381b2f9dc7fd96ce791c5a2fa4a
+  languageName: node
+  linkType: hard
+
+"unist-util-remove-position@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "unist-util-remove-position@npm:5.0.0"
+  dependencies:
+    "@types/unist": ^3.0.0
+    unist-util-visit: ^5.0.0
+  checksum: 8aabdb9d0e3e744141bc123d8f87b90835d521209ad3c6c4619d403b324537152f0b8f20dda839b40c3aa0abfbf1828b3635a7a8bb159c3ed469e743023510ee
   languageName: node
   linkType: hard
 
@@ -12905,13 +12782,6 @@ __metadata:
   bin:
     node-which: bin/which.js
   checksum: f17e84c042592c21e23c8195108cff18c64050b9efb8459589116999ea9da6dd1509e6a1bac3aeebefd137be00fabbb61b5c2bc0aa0f8526f32b58ee2f545651
-  languageName: node
-  linkType: hard
-
-"wicked-good-xpath@npm:1.3.0":
-  version: 1.3.0
-  resolution: "wicked-good-xpath@npm:1.3.0"
-  checksum: 1aa84bd57426aa07f95d7eca0b0410e841b8e7a35248c9404fa235eaf6a0932c811a96cbdc763c3df18ab76c7644fd8e807d8f185146154d3fc6baf554dcc7e3
   languageName: node
   linkType: hard
 
