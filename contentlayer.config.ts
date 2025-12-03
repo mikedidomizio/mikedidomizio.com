@@ -1,11 +1,12 @@
-import { defineDocumentType, ComputedFields, makeSource } from 'contentlayer/source-files'
+import { defineDocumentType, ComputedFields, makeSource } from 'contentlayer2/source-files'
 import { writeFileSync } from 'fs'
 import readingTime from 'reading-time'
 import GithubSlugger from 'github-slugger'
 import path from 'path'
 // Remark packages
 import remarkGfm from 'remark-gfm'
-import remarkMath from 'remark-math'
+// @ts-ignore
+import rehypeMathjax from 'rehype-mathjax'
 import {
   remarkExtractFrontmatter,
   remarkCodeTitles,
@@ -142,13 +143,13 @@ export default makeSource({
       remarkExtractFrontmatter,
       remarkGfm,
       remarkCodeTitles,
-      remarkMath,
       remarkImgToJsx,
     ],
     rehypePlugins: [
       rehypeSlug,
       rehypeAutolinkHeadings,
       rehypeKatex,
+      rehypeMathjax,
       [rehypeCitation, { path: path.join(root, 'data') }],
       [rehypePrismPlus, { defaultLanguage: 'js', ignoreMissing: true }],
       rehypePresetMinify,
