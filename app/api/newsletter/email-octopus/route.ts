@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-const handler = async (req: NextRequest, res: NextResponse) => {
+const handler = async (req: NextRequest, res: never) => {
   const json = await req.json()
   const API_KEY = process.env.EMAILOCTOPUS_API_KEY
   const LIST_ID = process.env.EMAILOCTOPUS_LIST_ID
