@@ -41,7 +41,7 @@
     ".contentlayer/generated",
     ".contentlayer/generated/**/*.json",
     ".next/types/**/*.ts",
-    "./app/api/.well-known/atproto-did/route.ts"
+    "./app/.well-known/atproto-did/route.ts"
   ],
   "exclude": ["node_modules"]
 }
