@@ -49,8 +49,8 @@ export default function Reading() {
   return (
     <>
       <div className="divide-y divide-gray-200 dark:divide-gray-700">
-        <div className="space-y-2 pb-8 pt-6 md:space-y-5">
-          <h1 className="text-3xl font-extrabold leading-9 tracking-tight text-gray-900 dark:text-gray-100 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14">
+        <div className="space-y-2 pt-6 pb-8 md:space-y-5">
+          <h1 className="text-3xl leading-9 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10 md:text-6xl md:leading-14 dark:text-gray-100">
             Reading
           </h1>
           <p className="text-lg leading-7 text-gray-500 dark:text-gray-400">
@@ -61,7 +61,7 @@ export default function Reading() {
           {booksRead.map((category) => {
             return (
               <div key={category.categoryName}>
-                <h2 className="mb-3 text-2xl font-bold leading-8 tracking-tight">
+                <h2 className="mb-3 text-2xl leading-8 font-bold tracking-tight">
                   {category.categoryName}
                 </h2>
                 <div className="-m-4 flex flex-wrap">
@@ -75,7 +75,7 @@ export default function Reading() {
                     >
                       <Link
                         href={d.href}
-                        className="text-base font-medium leading-6 text-primary-500 hover:text-primary-600 dark:hover:text-primary-400"
+                        className="text-primary-500 hover:text-primary-600 dark:hover:text-primary-400 text-base leading-6 font-medium"
                         aria-label={`Link to site for ${d.title}`}
                       >
                         Learn more about this book
