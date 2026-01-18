@@ -1,0 +1,133 @@
+---
+title: 2025 in Review
+summary: 'My reflections on the year 2025'
+date: '2026-01-18'
+tags: ['year in review']
+draft: false
+---
+
+<TOCInline toc={props.toc} toHeading={3} />
+
+## Open source projects that were "completed"
+
+## Projects that never saw the light of day
+
+### Forklore
+
+In the last year or so, I've stumbled across projects that don't seem to be maintained as much.
+You sometimes find forks that are maintained, and/or have new features added to them.
+
+The forks page in GitHub doesn't have a way to explain how a fork differs from the original project.
+So I created Forklore.  What it does is gets all the forks of a project, and then uses OpenAI API to
+summarize the differences between the original project and each fork.
+
+This saves me time when I'm looking for a fork that has a specific feature or fix that I need.
+
+### Price Tracker
+
+I wanted to create a price tracker that would allow me to track prices of products on various e-commerce
+websites.  The idea was to have a simple interface where I could add products to track, and then get notified
+when the price drops below a certain threshold.
+
+Similar to camelcamelcamel and Keepa, but for any website.
+
+Unfortunately I ran into issues with Staples, specifically bypassing Cloudflare protections.
+
+### GitHub Comment Moderator
+
+A simple app that would catch new comments on GitHub issues and PRs, and then delete them if they contained
+certain keywords.  The idea was to help moderate large open source projects that might get spam comments.
+
+Specifically "+1" comments.
+
+### GitHub Search
+
+### Batch Delete GitHub Repositories
+
+### SlimSpec
+
+### Obsidian Scanner
+
+### CircleCI Configuration Length
+
+### Gmail Reader Analyzer
+
+
+## Open source contributions
+
+These are some of the contributions I'm most proud of from 2025.
+
+### PNPM Git Branch Lockfiles (Merged)
+
+The issue was that dependency updates which were merged, would cause problems for other dependency updates, because
+the lockfile had previous changes.  This caused a number of issues including:
+
+- Developers having to go into PRs, rebase or in our case, recreate PRs.  This doesn't seem time consuming, but it
+  adds up over time.  It also takes developers away from more important work.
+- Developers not investigating when CI failures were due to other reasons.
+- CI builds failing because of lockfile conflicts.  Costs of CI (specifically visual regression testing).
+
+PNPM has a feature called [Git Branch Lockfiles](https://pnpm.io/git-branch-lockfiles) that allows you to
+have a separate lockfile for each git branch. This means that changes to the lockfile in one branch
+won't affect other branches.
+
+### ESLint documentation to NOT use `no-return-await` (Merged)
+
+A long time ago the `no-return-await` rule was added to ESLint.  It flagged code like this:
+
+```js
+async function foo() {
+  return await bar();
+}
+```
+
+Which would cause multiple jobs to be created, when it could just be:
+
+```js
+async function foo() {
+  return bar();
+}
+```
+
+In more recent times though, the [extra job was eliminated](https://github.com/tc39/ecma262/pull/1250) and therefore
+there was no longer a performance benefit to using `no-return-await`.  In fact, using `return await` provided a better
+stack trace in the event of an error.
+
+As someone that has used ESLint for the better part of a decade, and has rules burned into memory, I found myself
+thinking that `no-return-await` was a good rule to have enabled, and I'm sure many others as well.
+
+I opened a [PR](https://github.com/eslint/eslint/pull/19727) in the ESLint repo to discuss changing the documentation
+to make it clear it was recommend to not use it.
+
+### Testing Library: Prefer string matchers over regular expressions (Open)
+
+We ran into a problem at work where a combination of a parent and child DOM element caused an a11y screen reader issue
+where a screen reader would read the text as one.  This was undesired behaviour and was not caught by Testing Library
+because like many others, we use regular expressions to match text.
+
+[A (quick) example](https://testing-playground.com/gist/0888cfd1e17f30e148a2e9e5513cfd36/21fbc98dc4fde3ca4f53f3a3f448380879e59859):
+
+```html
+<button>
+  Notifications
+  <span
+    class="badge"
+    aria-label="3 notifications"
+  >3</span>
+</button>
+```
+
+which is read by a screen reader as "notifications 3 notifications".  Which might be understood here, but when you're
+combining React components together, it might not be clear from the combination what is being read.
+
+The solution is to use string matchers instead of regular expressions, so that Testing Library can find the exact
+text.  Isn't that what we want tests to do?  Notify us when things aren't exactly as we expect them to be?
+
+Some reading:
+- [testing-playground thread](https://github.com/testing-library/testing-playground/issues/158)
+- [dom-testing-library proposal](https://github.com/testing-library/dom-testing-library/issues/1367)
+
+## Closing
+
+We're all very fortunate to have these tools, saving us all countless hours of work, bugs,
+and frustration. Consider talking to your company about supporting open source in 2026!
